@@ -75,8 +75,6 @@ nav a i{font-size:0.85rem;opacity:0.8}
 .btn-ghost:hover{background:var(--surface-2);border-color:var(--primary);transform:translateY(-2px)}
 .btn-premium{background:var(--grad-premium);color:#1a1000;box-shadow:0 10px 30px -10px rgba(251,191,36,0.6)}
 .btn-premium:hover{transform:translateY(-2px);box-shadow:0 15px 40px -10px rgba(251,191,36,0.9)}
-.btn-danger{background:var(--danger);color:white}
-.btn-danger:hover{background:#dc2626;transform:translateY(-2px)}
 
 .filters-wrap{position:sticky;top:78px;z-index:90;padding:20px 0;margin-bottom:40px;background:linear-gradient(180deg,rgba(10,14,26,0.95),rgba(10,14,26,0.7) 70%,transparent)}
 body.has-banner .filters-wrap{top:114px}
@@ -110,9 +108,8 @@ body.has-banner .filters-wrap{top:114px}
 .addon-icon.cat-interface{background:linear-gradient(135deg,#8b5cf6,#a855f7)}
 .addon-icon.cat-gameplay{background:linear-gradient(135deg,#ec4899,#f43f5e)}
 .addon-icon.cat-visual{background:linear-gradient(135deg,#f59e0b,#f97316)}
-.addon-icon.cat-performance{background:linear-gradient(135deg,#10b981,#22c55e)}D
+.addon-icon.cat-performance{background:linear-gradient(135deg,#10b981,#22c55e)}
 
-/* Botoes admin no card (editar/excluir) */
 .admin-card-actions{position:absolute;top:10px;right:10px;display:none;gap:6px;z-index:10}
 .admin-card-actions.show{display:flex}
 .admin-card-actions button{width:32px;height:32px;border-radius:8px;border:none;cursor:pointer;display:grid;place-items:center;font-size:0.8rem;transition:all 0.2s;background:rgba(0,0,0,0.5);backdrop-filter:blur(4px);color:white}
@@ -128,13 +125,17 @@ body.has-banner .filters-wrap{top:114px}
 .addon-body{padding:18px 22px 22px;flex:1;display:flex;flex-direction:column}
 .addon-title{font-size:1.18rem;font-weight:700;margin-bottom:10px;color:var(--text)}
 .addon-desc{color:var(--text-dim);font-size:0.92rem;line-height:1.6;margin-bottom:18px;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
-.addon-meta-row{display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;color:var(--text-mute);padding-top:16px;border-top:1px dashed var(--border);margin-bottom:16px}
+.addon-meta-row{display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;color:var(--text-mute);padding-top:16px;border-top:1px dashed var(--border);margin-bottom:16px;gap:8px;flex-wrap:wrap}
 .addon-meta-row .author{display:flex;align-items:center;gap:7px}
 .addon-meta-row .author i{color:var(--primary)}
 .addon-meta-row .author.clickable{cursor:pointer;transition:all 0.2s}
 .addon-meta-row .author.clickable:hover{color:var(--primary)}
 .addon-meta-row .author.clickable:hover span{text-decoration:underline}
 .addon-meta-row .date{display:flex;align-items:center;gap:7px}
+
+.youtube-btn{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:8px;background:rgba(255,0,0,0.12);border:1px solid rgba(255,0,0,0.3);color:#ff6b6b;font-size:0.72rem;font-weight:600;text-decoration:none;transition:all 0.2s}
+.youtube-btn:hover{background:#ff0000;color:white;border-color:#ff0000;transform:translateY(-2px)}
+.youtube-btn i{font-size:0.85rem}
 
 .download-row{display:flex;gap:10px}
 .dl-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 14px;border-radius:12px;font-weight:600;font-size:0.85rem;text-decoration:none;color:white;transition:all 0.25s;position:relative;overflow:hidden;letter-spacing:0.03em;border:none;cursor:pointer;font-family:inherit}
@@ -234,7 +235,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
 .activate-form input{background:var(--bg-2);border:1px solid var(--border);color:var(--text);padding:12px 14px;border-radius:11px;font-family:inherit;font-size:0.92rem}
 .activate-form input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,0.15)}
 
-/* ADMIN */
 .admin-form{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .admin-form .full{grid-column:1/-1}
 .form-field{display:flex;flex-direction:column;gap:8px}
@@ -254,7 +254,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
 .admin-pane{display:none}
 .admin-pane.active{display:block}
 
-/* UPLOAD DE ÍCONE */
 .icon-tabs{display:flex;gap:8px;margin-bottom:14px;grid-column:1/-1}
 .icon-tab{flex:1;padding:10px 14px;border-radius:10px;background:var(--bg-2);border:1px solid var(--border);color:var(--text-dim);cursor:pointer;font-size:0.82rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.2s;font-family:inherit}
 .icon-tab:hover{background:var(--surface-2);color:var(--text)}
@@ -273,7 +272,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
 .icon-preview button{background:var(--danger);color:white;border:none;padding:8px 12px;border-radius:8px;cursor:pointer;font-size:0.8rem;font-weight:600;font-family:inherit}
 .icon-preview button:hover{background:#dc2626}
 
-/* LISTA DE ADDONS (gerenciar) */
 .addons-admin-list{display:flex;flex-direction:column;gap:12px}
 .addon-admin-item{background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:14px 18px;display:flex;align-items:center;gap:14px;transition:all 0.2s}
 .addon-admin-item:hover{border-color:var(--border-hi)}
@@ -287,7 +285,31 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
 .addon-admin-actions button.edit:hover{background:var(--primary);color:white;border-color:var(--primary)}
 .addon-admin-actions button.del:hover{background:var(--danger);color:white;border-color:var(--danger)}
 
-/* GERADOR DE CHAVES */
+/* CRIADORES */
+.creators-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
+.creator-item{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:14px;transition:all 0.2s}
+.creator-item:hover{border-color:var(--border-hi)}
+.creator-avatar{width:42px;height:42px;border-radius:50%;background:var(--grad-1);display:grid;place-items:center;color:white;font-weight:700;font-size:1rem;flex-shrink:0}
+.creator-info{flex:1;min-width:0}
+.creator-info h4{font-size:0.95rem;margin-bottom:3px;color:var(--text)}
+.creator-info a{font-size:0.78rem;color:var(--text-dim);text-decoration:none;display:inline-flex;align-items:center;gap:6px;transition:color 0.2s;word-break:break-all}
+.creator-info a:hover{color:#ff0000}
+.creator-info a i{color:#ff0000;flex-shrink:0}
+.creator-actions{display:flex;gap:6px;flex-shrink:0}
+.creator-actions button{width:36px;height:36px;border-radius:9px;border:1px solid var(--border);background:var(--surface);color:var(--text-dim);cursor:pointer;display:grid;place-items:center;transition:all 0.2s;font-family:inherit}
+.creator-actions button.edit:hover{background:var(--primary);color:white;border-color:var(--primary)}
+.creator-actions button.del:hover{background:var(--danger);color:white;border-color:var(--danger)}
+
+.creator-form{display:grid;grid-template-columns:1fr 1fr auto;gap:12px;align-items:end;margin-bottom:20px}
+.creator-form .form-field{display:flex;flex-direction:column;gap:8px}
+.creator-form label{font-size:0.82rem;font-weight:600;color:var(--text-dim)}
+.creator-form input{background:var(--bg-2);border:1px solid var(--border);color:var(--text);padding:12px 14px;border-radius:11px;font-family:inherit;font-size:0.92rem;transition:all 0.2s;width:100%}
+.creator-form input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,0.15)}
+
+@media(max-width:768px){
+  .creator-form{grid-template-columns:1fr}
+}
+
 .keygen-form{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;align-items:flex-end}
 .keygen-form .form-field{flex:1;min-width:180px}
 .key-display{background:var(--bg-2);border:2px dashed var(--gold);border-radius:14px;padding:22px;text-align:center;margin-bottom:20px;display:none}
@@ -355,7 +377,8 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
   .download-row{flex-direction:column}
 }
 </style>
-</head><body>
+</head>
+<body>
 
 <!-- BANNER PREMIUM ATIVO -->
 <div class="premium-banner" id="premiumBanner">
@@ -368,7 +391,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
 <header>
   <div class="container header-inner">
     <div class="logo" onclick="scrollTo({top:0,behavior:'smooth'})">
-      <div class="logo-mark"><i class=" fas fa-bolt"></i></div>
+      <div class="logo-mark"><i class="fas fa-bolt"></i></div>
       <div class="logo-text">
         <h1>Revolution <span>Addon's</span></h1>
         <p>Premium Minecraft Bedrock</p>
@@ -384,7 +407,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
         <li><a href="#about"><i class="fas fa-circle-info"></i> Sobre</a></li>
         <li><a href="#contact"><i class="fas fa-envelope"></i> Contato</a></li>
         <li><a href="#" class="nav-premium-btn" onclick="openPremiumModal();return false;"><i class="fas fa-crown"></i> Premium</a></li>
-        <span class="admin-status" id="adminStatus" style="display:none">
+        <li><span class="admin-status" id="adminStatus" style="display:none">
           <i class="fas fa-shield-halved"></i> Admin
           <button onclick="logoutAdmin(event)">Sair</button>
         </span></li>
@@ -656,6 +679,9 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
       <button class="admin-tab" data-pane="pane-manage" onclick="switchAdminTab(this)">
         <i class="fas fa-list-check"></i> Gerenciar Addons
       </button>
+      <button class="admin-tab" data-pane="pane-creators" onclick="switchAdminTab(this)">
+        <i class="fas fa-users"></i> Criadores
+      </button>
       <button class="admin-tab" data-pane="pane-keys" onclick="switchAdminTab(this)">
         <i class="fas fa-key"></i> Gerar Chaves
       </button>
@@ -787,7 +813,31 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
       <div class="addons-admin-list" id="addonsAdminList"></div>
     </div>
 
-    <!-- ABA 3: GERAR CHAVES -->
+    <!-- ABA 3: CRIADORES -->
+    <div class="admin-pane" id="pane-creators">
+      <div class="admin-note" style="margin-bottom:20px">
+        <i class="fas fa-info-circle"></i>
+        <span>Cadastre o nome e o YouTube de cada criador. Ao adicionar uma addon, se o autor bater com um criador cadastrado, o botão YouTube aparece no card.</span>
+      </div>
+
+      <div class="creator-form">
+        <div class="form-field">
+          <label>Nome do Criador *</label>
+          <input type="text" id="creatorName" placeholder="Ex: TuiArthur">
+        </div>
+        <div class="form-field">
+          <label>Link do YouTube *</label>
+          <input type="url" id="creatorYouTube" placeholder="https://youtube.com/@TuiArthur">
+        </div>
+        <button class="btn btn-primary" onclick="addCreator()" style="height:46px">
+          <i class="fas fa-plus"></i> Adicionar
+        </button>
+      </div>
+
+      <div id="creatorsListContainer"></div>
+    </div>
+
+    <!-- ABA 4: GERAR CHAVES -->
     <div class="admin-pane" id="pane-keys">
       <div class="admin-note" style="margin-bottom:20px">
         <i class="fas fa-info-circle"></i>
@@ -826,20 +876,22 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
       </div>
     </div>
 
-    <!-- ABA 4: LISTA DE CHAVES -->
+    <!-- ABA 5: LISTA DE CHAVES -->
     <div class="admin-pane" id="pane-list">
       <div id="keyListContainer"></div>
     </div>
   </div>
-</div><script>
+</div>
+
+<script>
 /* =========================================================
-   REVOLUTION ADDON'S — SISTEMA COMPLETO v5
-   - Editar/Excluir addons (botões no card + aba "Gerenciar")
-   - Upload de ícone PNG (Base64, máx 200KB)
-   - Ícone via FontAwesome / Upload / URL
+   REVOLUTION ADDON'S — SISTEMA COMPLETO v6
+   - Aba de Criadores (nome + YouTube)
+   - Botão YouTube automático nos cards
+   - Editar/Excluir addons
+   - Upload PNG em Base64
    ========================================================= */
 
-// ====== CONFIG ======
 const PIX_KEY = 'arthurfmiranda1993@gmail.com';
 const DISCORD_URL = 'https://discord.gg/KhQj72HD8V';
 const EMAIL_CONTACT = 'arthurfmiranda1993@gmail.com';
@@ -856,21 +908,19 @@ const PLAN_DATA = {
   anual:      { price: 15, days: 365, label: 'Anual',      amount: 'R$ 15,00' }
 };
 
-// Senha admin em Base64 ("Metodista")
 const PWD_OBF = atob('TWV0b2Rpc3Rh');
 
-// Storage
-const ADMIN_SESSION_KEY   = 'rv_session_v5';
-const ADDONS_STORAGE_KEY  = 'revolutionAddonsV5';
-const KEYS_STORAGE_KEY    = 'revolutionKeysV5';
-const PREMIUM_SESSION_KEY = 'revolutionPremiumV5';
+const ADMIN_SESSION_KEY   = 'rv_session_v6';
+const ADDONS_STORAGE_KEY  = 'revolutionAddonsV6';
+const KEYS_STORAGE_KEY    = 'revolutionKeysV6';
+const CREATORS_STORAGE_KEY= 'revolutionCreatorsV6';
+const PREMIUM_SESSION_KEY = 'revolutionPremiumV6';
 const SESSION_HOURS = 6;
 
-// Estado
 let addonsData = [];
 let keysData = [];
+let creatorsData = [];
 let currentFilter = 'all';
-let currentSort = 'newest';
 let currentSearch = '';
 let currentAuthorFilter = null;
 let displayedAddons = 9;
@@ -878,12 +928,11 @@ let selectedPlan = null;
 let lastGeneratedKey = null;
 let currentIconTab = 'icon-fa';
 let uploadedIconData = null;
+let editingCreatorName = null;
 
-// DOM
 const $ = id => document.getElementById(id);
 const addonsGrid     = $('addonsGrid');
 const categoryFilter = $('categoryFilter');
-const sortFilter     = $('sortFilter');
 const searchFilter   = $('searchFilter');
 const applyFiltersBtn= $('applyFilters');
 const loadMoreBtn    = $('loadMore');
@@ -896,9 +945,7 @@ const premiumInfoModal = $('premiumInfoModal');
 const mobileMenuBtn  = $('mobileMenuBtn');
 const mainNav        = $('mainNav');
 
-/* =========================================================
-   LOGIN ADMIN
-   ========================================================= */
+/* ================= LOGIN ADMIN ================= */
 function tryLogin(pwd){
   if(pwd.trim() === PWD_OBF){
     localStorage.setItem(ADMIN_SESSION_KEY, JSON.stringify({
@@ -945,13 +992,13 @@ function openAdminPanel(){
   document.body.style.overflow = 'hidden';
   renderKeyList();
   renderAddonsAdminList();
+  renderCreatorsList();
 }
 function closeAdminPanel(){
   adminModal.classList.remove('open');
   document.body.style.overflow = '';
 }
 
-// Gatilhos secretos
 let logoClicks = 0, logoTimer = null;
 document.querySelector('.logo').addEventListener('click', () => {
   logoClicks++;
@@ -967,9 +1014,7 @@ document.addEventListener('keydown', e => {
 });
 if(location.hash === '#painel'){ setTimeout(requestAccess, 400); }
 
-/* =========================================================
-   PREMIUM
-   ========================================================= */
+/* ================= PREMIUM ================= */
 function getPremiumSession(){
   try{
     const s = JSON.parse(localStorage.getItem(PREMIUM_SESSION_KEY) || '{}');
@@ -1055,9 +1100,7 @@ function activateKey(){
   toast('🎉 Premium ativado com sucesso!', 'success');
 }
 
-/* =========================================================
-   MODAL PREMIUM
-   ========================================================= */
+/* ================= MODAL PREMIUM ================= */
 function openPremiumModal(){
   if(isPremiumActive()){ showPremiumInfo(); return; }
   premiumModal.classList.add('open');
@@ -1134,9 +1177,110 @@ function openEmailProof(){
   window.location.href = `mailto:${EMAIL_CONTACT}?subject=${subject}&body=${body}`;
 }
 
-/* =========================================================
-   RENDER DE ADDONS
-   ========================================================= */
+/* ================= CRIADORES ================= */
+function saveCreators(){
+  try{ localStorage.setItem(CREATORS_STORAGE_KEY, JSON.stringify(creatorsData)); }catch{}
+}
+function loadCreators(){
+  try{
+    const raw = localStorage.getItem(CREATORS_STORAGE_KEY);
+    if(raw){
+      const p = JSON.parse(raw);
+      if(Array.isArray(p)) creatorsData = p;
+    }
+  }catch{}
+}
+function findCreator(name){
+  if(!name) return null;
+  const n = name.toLowerCase().trim();
+  return creatorsData.find(c => c.name.toLowerCase().trim() === n) || null;
+}
+function addCreator(){
+  if(!hasValidSession()){ toast('Sessão expirada.', 'error'); return; }
+  const name = $('creatorName').value.trim();
+  const youtube = $('creatorYouTube').value.trim();
+
+  if(!name){ toast('Digite o nome do criador.', 'error'); return; }
+  if(!/^https?:\/\//i.test(youtube)){ toast('Link do YouTube inválido (deve começar com https://).', 'error'); return; }
+
+  if(editingCreatorName){
+    const idx = creatorsData.findIndex(c => c.name.toLowerCase() === editingCreatorName.toLowerCase());
+    if(idx !== -1){
+      creatorsData[idx] = { name: name, youtube: youtube };
+      toast(`Criador "${name}" atualizado!`, 'success');
+    }
+    editingCreatorName = null;
+  }else{
+    if(findCreator(name)){
+      toast('Já existe um criador com esse nome.', 'error'); return;
+    }
+    creatorsData.push({ name: name, youtube: youtube });
+    toast(`Criador "${name}" adicionado!`, 'success');
+  }
+
+  saveCreators();
+  renderCreatorsList();
+  renderAddons();
+  $('creatorName').value = '';
+  $('creatorYouTube').value = '';
+}
+function editCreator(name){
+  if(!hasValidSession()){ toast('Faça login primeiro.', 'error'); return; }
+  const c = findCreator(name);
+  if(!c){ toast('Criador não encontrado.', 'error'); return; }
+  $('creatorName').value = c.name;
+  $('creatorYouTube').value = c.youtube;
+  editingCreatorName = c.name;
+  $('creatorName').focus();
+  toast(`Editando "${c.name}". Altere e clique em Adicionar.`, 'info');
+}
+function deleteCreator(name){
+  if(!hasValidSession()){ toast('Faça login primeiro.', 'error'); return; }
+  const c = findCreator(name);
+  if(!c){ toast('Criador não encontrado.', 'error'); return; }
+  if(!confirm(`Excluir criador "${c.name}"?\n\nO YouTube dele não vai mais aparecer nos cards.`)) return;
+  creatorsData = creatorsData.filter(x => x.name.toLowerCase() !== c.name.toLowerCase());
+  saveCreators();
+  renderCreatorsList();
+  renderAddons();
+  toast(`Criador "${c.name}" excluído.`, 'success');
+}
+function renderCreatorsList(){
+  const container = $('creatorsListContainer');
+  if(!creatorsData.length){
+    container.innerHTML = `
+      <div style="text-align:center;padding:40px;color:var(--text-mute)">
+        <i class="fas fa-users" style="font-size:2.5rem;margin-bottom:14px;opacity:0.4"></i>
+        <p>Nenhum criador cadastrado ainda</p>
+      </div>`;
+    return;
+  }
+  container.innerHTML = `
+    <div class="creators-list">
+      ${creatorsData.map(c => `
+        <div class="creator-item">
+          <div class="creator-avatar">${escapeHtml(c.name.charAt(0).toUpperCase())}</div>
+          <div class="creator-info">
+            <h4>${escapeHtml(c.name)}</h4>
+            <a href="${escapeAttr(c.youtube)}" target="_blank" rel="noopener">
+              <i class="fab fa-youtube"></i> ${escapeHtml(c.youtube)}
+            </a>
+          </div>
+          <div class="creator-actions">
+            <button class="edit" title="Editar" onclick="editCreator('${escapeAttr(c.name)}')">
+              <i class="fas fa-pen"></i>
+            </button>
+            <button class="del" title="Excluir" onclick="deleteCreator('${escapeAttr(c.name)}')">
+              <i class="fas fa-trash"></i>
+            </button>
+          </div>
+        </div>
+      `).join('')}
+    </div>
+  `;
+}
+
+/* ================= RENDER ADDONS ================= */
 const catNames = {
   utility:'Utilitários', interface:'Interface',
   gameplay:'Gameplay', visual:'Visuais', performance:'Performance'
@@ -1163,6 +1307,11 @@ function createCard(a){
 
   const date = new Date(a.date).toLocaleDateString('pt-BR');
   const iconHtml = renderIconHtml(a.icon, a.category);
+
+  const creator = findCreator(a.author);
+  const youtubeBtn = creator
+    ? `<a href="${escapeAttr(creator.youtube)}" target="_blank" rel="noopener" class="youtube-btn" title="YouTube de ${escapeAttr(a.author)}"><i class="fab fa-youtube"></i> YouTube</a>`
+    : '';
 
   let premiumHtml = '';
   if(hasPremium){
@@ -1220,7 +1369,10 @@ function createCard(a){
         <span class="author clickable" onclick="filterByAuthor('${escapeAttr(a.author)}')">
           <i class="fas fa-user"></i> <span>${escapeHtml(a.author)}</span>
         </span>
-        <span class="date"><i class="fas fa-calendar"></i> ${date}</span>
+        <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          ${youtubeBtn}
+          <span class="date"><i class="fas fa-calendar"></i> ${date}</span>
+        </span>
       </div>
       <div class="download-row">
         <a href="${escapeAttr(a.downloadUrlB)}" target="_blank" rel="noopener" class="dl-btn dl-btn-b"><i class="fas fa-download"></i> BAIXAR B</a>
@@ -1246,10 +1398,7 @@ function renderAddons(){
   });
 
   filtered.sort((a,b) => {
-    if(currentSort === 'newest') return new Date(b.date) - new Date(a.date);
-    if(currentSort === 'name') return a.name.localeCompare(b.name);
-    if(currentSort === 'author') return a.author.localeCompare(b.author);
-    return 0;
+    return new Date(b.date) - new Date(a.date);
   });
 
   addonsGrid.innerHTML = '';
@@ -1300,9 +1449,7 @@ function clearAuthorFilter(){
   renderAddons();
 }
 
-/* =========================================================
-   ÍCONE — ABAS
-   ========================================================= */
+/* ================= ÍCONE ================= */
 function switchIconTab(tabId){
   currentIconTab = tabId;
   document.querySelectorAll('.icon-tab').forEach(t => {
@@ -1313,7 +1460,6 @@ function switchIconTab(tabId){
   });
 }
 
-// Upload de arquivo
 const uploadZone = $('uploadZone');
 const iconFile = $('iconFile');
 const uploadPreview = $('uploadPreview');
@@ -1374,11 +1520,8 @@ function getSelectedIcon(){
   return $('addonIcon').value.trim() || 'fas fa-puzzle-piece';
 }
 
-/* =========================================================
-   FORM — ADICIONAR / EDITAR ADDON
-   ========================================================= */
+/* ================= FORM ADDON ================= */
 function setIconForEdit(icon){
-  // Reseta abas
   switchIconTab('icon-fa');
   $('addonIcon').value = 'fas fa-puzzle-piece';
   $('addonIconUrl').value = '';
@@ -1387,7 +1530,6 @@ function setIconForEdit(icon){
   if(!icon) return;
 
   if(icon.startsWith('data:image')){
-    // Base64 → aba upload
     uploadedIconData = icon;
     switchIconTab('icon-upload');
     uploadPreview.innerHTML = `
@@ -1460,13 +1602,11 @@ $('addAddonForm').addEventListener('submit', e => {
   };
 
   if(editingId){
-    // Editar
     const idx = addonsData.findIndex(a => a.id === parseInt(editingId));
     if(idx === -1){ toast('Addon não encontrado.', 'error'); return; }
     addonsData[idx] = { ...addonsData[idx], ...addonData };
     toast(`"${addonData.name}" atualizado!`, 'success');
   }else{
-    // Novo
     const newAddon = {
       id: addonsData.length ? Math.max(...addonsData.map(a=>a.id)) + 1 : 1,
       ...addonData,
@@ -1483,9 +1623,7 @@ $('addAddonForm').addEventListener('submit', e => {
   switchAdminTab(document.querySelector('.admin-tab[data-pane="pane-manage"]'));
 });
 
-/* =========================================================
-   EDITAR / EXCLUIR
-   ========================================================= */
+/* ================= EDITAR / EXCLUIR ================= */
 function editAddon(id){
   if(!hasValidSession()){ toast('Faça login primeiro.', 'error'); return; }
   const a = addonsData.find(x => x.id === id);
@@ -1558,9 +1696,7 @@ function renderAddonsAdminList(){
   }).join('');
 }
 
-/* =========================================================
-   GERADOR DE CHAVES
-   ========================================================= */
+/* ================= CHAVES ================= */
 function randomStr(n){
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   let s = '';
@@ -1686,11 +1822,10 @@ function switchAdminTab(btn){
   $(btn.dataset.pane).classList.add('active');
   if(btn.dataset.pane === 'pane-list') renderKeyList();
   if(btn.dataset.pane === 'pane-manage') renderAddonsAdminList();
+  if(btn.dataset.pane === 'pane-creators') renderCreatorsList();
 }
 
-/* =========================================================
-   PERSISTÊNCIA
-   ========================================================= */
+/* ================= PERSISTÊNCIA ================= */
 function saveAddons(){
   try{ localStorage.setItem(ADDONS_STORAGE_KEY, JSON.stringify(addonsData)); }catch{}
 }
@@ -1716,9 +1851,7 @@ function loadKeys(){
   }catch{}
 }
 
-/* =========================================================
-   EVENTOS
-   ========================================================= */
+/* ================= EVENTOS ================= */
 applyFiltersBtn.addEventListener('click', applyFilters);
 searchFilter.addEventListener('keyup', e => { if(e.key === 'Enter') applyFilters(); });
 categoryFilter.addEventListener('change', applyFilters);
@@ -1764,9 +1897,7 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 $('activateKey').addEventListener('keyup', e => { if(e.key === 'Enter') $('activateEmail').focus(); });
 $('activateEmail').addEventListener('keyup', e => { if(e.key === 'Enter') activateKey(); });
 
-/* =========================================================
-   UTILS
-   ========================================================= */
+/* ================= UTILS ================= */
 function escapeHtml(s=''){
   return String(s).replace(/[&<>"']/g, c => ({
     '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
@@ -1782,11 +1913,10 @@ function toast(msg, type='info'){
   setTimeout(() => { el.style.animation = 'toastOut 0.3s forwards'; setTimeout(()=>el.remove(), 300); }, 3400);
 }
 
-/* =========================================================
-   INIT
-   ========================================================= */
+/* ================= INIT ================= */
 loadAddons();
 loadKeys();
+loadCreators();
 renderAddons();
 updateStats();
 updatePremiumUI();
@@ -1796,7 +1926,6 @@ setInterval(() => {
   const s = getPremiumSession();
   if(s){ updatePremiumUI(); renderAddons(); }
 }, 60000);
-
 </script>
 </body>
 </html>
