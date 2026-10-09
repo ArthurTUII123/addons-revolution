@@ -29,6 +29,13 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
 .container{width:min(1240px,92%);margin:0 auto;position:relative;z-index:1}
 h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.02em;line-height:1.2}
 
+/* LOADING OVERLAY */
+#loadingOverlay{position:fixed;inset:0;background:var(--bg);z-index:99999;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity 0.5s}
+#loadingOverlay.hide{opacity:0;pointer-events:none}
+.spinner{width:50px;height:50px;border-radius:50%;border:4px solid rgba(99,102,241,0.2);border-top-color:var(--primary);animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+#loadingOverlay p{color:var(--text-dim);font-size:0.9rem}
+
 .premium-banner{position:fixed;top:0;left:0;right:0;z-index:2000;background:var(--grad-premium);color:#1a1000;padding:8px 16px;text-align:center;font-weight:600;font-size:0.85rem;display:none;align-items:center;justify-content:center;gap:12px;box-shadow:0 4px 20px rgba(251,191,36,0.4)}
 .premium-banner.show{display:flex}
 .premium-banner button{background:rgba(0,0,0,0.2);color:#1a1000;border:none;padding:4px 12px;border-radius:6px;cursor:pointer;font-size:0.78rem;font-weight:700}
@@ -285,7 +292,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
 .addon-admin-actions button.edit:hover{background:var(--primary);color:white;border-color:var(--primary)}
 .addon-admin-actions button.del:hover{background:var(--danger);color:white;border-color:var(--danger)}
 
-/* CRIADORES */
 .creators-list{display:flex;flex-direction:column;gap:10px;margin-top:16px}
 .creator-item{background:var(--bg-2);border:1px solid var(--border);border-radius:12px;padding:14px 18px;display:flex;align-items:center;gap:14px;transition:all 0.2s}
 .creator-item:hover{border-color:var(--border-hi)}
@@ -305,10 +311,6 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
 .creator-form label{font-size:0.82rem;font-weight:600;color:var(--text-dim)}
 .creator-form input{background:var(--bg-2);border:1px solid var(--border);color:var(--text);padding:12px 14px;border-radius:11px;font-family:inherit;font-size:0.92rem;transition:all 0.2s;width:100%}
 .creator-form input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,0.15)}
-
-@media(max-width:768px){
-  .creator-form{grid-template-columns:1fr}
-}
 
 .keygen-form{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;align-items:flex-end}
 .keygen-form .form-field{flex:1;min-width:180px}
@@ -362,6 +364,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
   .hero h2{font-size:2rem}
   .hero p.lead{font-size:1rem}
   .admin-form{grid-template-columns:1fr}
+  .creator-form{grid-template-columns:1fr}
   .modal-box{padding:24px}
   .footer-grid{grid-template-columns:1fr;gap:30px}
   .footer-bottom{flex-direction:column;text-align:center}
@@ -377,8 +380,13 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
   .download-row{flex-direction:column}
 }
 </style>
-</head>
-<body>
+</head><body>
+
+<!-- LOADING OVERLAY -->
+<div id="loadingOverlay">
+  <div class="spinner"></div>
+  <p>Carregando addons...</p>
+</div>
 
 <!-- BANNER PREMIUM ATIVO -->
 <div class="premium-banner" id="premiumBanner">
@@ -696,7 +704,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
         <input type="hidden" id="editingId" value="">
         <div class="admin-note full" id="addNote">
           <i class="fas fa-lock"></i>
-          <span>Sessão autenticada · alterações salvas localmente neste navegador</span>
+          <span>Sessão autenticada · dados sincronizados com a nuvem</span>
         </div>
 
         <div class="form-field">
@@ -881,17 +889,29 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
       <div id="keyListContainer"></div>
     </div>
   </div>
-</div>
-
-<script>
+</div><script type="module">
 /* =========================================================
-   REVOLUTION ADDON'S — SISTEMA COMPLETO v6
-   - Aba de Criadores (nome + YouTube)
-   - Botão YouTube automático nos cards
-   - Editar/Excluir addons
-   - Upload PNG em Base64
+   REVOLUTION ADDON'S — FIREBASE v13
    ========================================================= */
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
+import { getDatabase, ref, set, onValue, update, remove, push } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-database.js";
+
+// ====== CONFIGURAÇÃO FIREBASE ======
+const firebaseConfig = {
+  apiKey: "AIzaSyDkDe4SuKlz9JSUZWNC-SYnTHNaoOYf2m8",
+  authDomain: "revolution-addons.firebaseapp.com",
+  databaseURL: "https://revolution-addons-default-rtdb.firebaseio.com",
+  projectId: "revolution-addons",
+  storageBucket: "revolution-addons.firebasestorage.app",
+  messagingSenderId: "531498291338",
+  appId: "1:531498291338:web:32604d8b32af918af9dd73"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
+
+// ====== CONFIG ======
 const PIX_KEY = 'arthurfmiranda1993@gmail.com';
 const DISCORD_URL = 'https://discord.gg/KhQj72HD8V';
 const EMAIL_CONTACT = 'arthurfmiranda1993@gmail.com';
@@ -909,14 +929,11 @@ const PLAN_DATA = {
 };
 
 const PWD_OBF = atob('TWV0b2Rpc3Rh');
-
-const ADMIN_SESSION_KEY   = 'rv_session_v6';
-const ADDONS_STORAGE_KEY  = 'revolutionAddonsV6';
-const KEYS_STORAGE_KEY    = 'revolutionKeysV6';
-const CREATORS_STORAGE_KEY= 'revolutionCreatorsV6';
-const PREMIUM_SESSION_KEY = 'revolutionPremiumV6';
+const ADMIN_SESSION_KEY   = 'rv_session_v7';
+const PREMIUM_SESSION_KEY = 'revolutionPremiumV7';
 const SESSION_HOURS = 6;
 
+// ====== ESTADO ======
 let addonsData = [];
 let keysData = [];
 let creatorsData = [];
@@ -929,23 +946,98 @@ let lastGeneratedKey = null;
 let currentIconTab = 'icon-fa';
 let uploadedIconData = null;
 let editingCreatorName = null;
+let addonsLoaded = false;
+let keysLoaded = false;
+let creatorsLoaded = false;
 
+// ====== DOM ======
 const $ = id => document.getElementById(id);
-const addonsGrid     = $('addonsGrid');
+const addonsGrid = $('addonsGrid');
 const categoryFilter = $('categoryFilter');
-const searchFilter   = $('searchFilter');
-const applyFiltersBtn= $('applyFilters');
-const loadMoreBtn    = $('loadMore');
-const totalAddonsEl  = $('totalAddons');
+const searchFilter = $('searchFilter');
+const applyFiltersBtn = $('applyFilters');
+const loadMoreBtn = $('loadMore');
+const totalAddonsEl = $('totalAddons');
 const totalPremiumEl = $('totalPremium');
 const totalAuthorsEl = $('totalAuthors');
-const adminModal     = $('adminModal');
-const premiumModal   = $('premiumModal');
+const adminModal = $('adminModal');
+const premiumModal = $('premiumModal');
 const premiumInfoModal = $('premiumInfoModal');
-const mobileMenuBtn  = $('mobileMenuBtn');
-const mainNav        = $('mainNav');
+const mobileMenuBtn = $('mobileMenuBtn');
+const mainNav = $('mainNav');
 
-/* ================= LOGIN ADMIN ================= */
+/* =========================================================
+   FIREBASE — CARREGAR DADOS EM TEMPO REAL
+   ========================================================= */
+function initFirebaseSync(){
+  // Addons
+  onValue(ref(db, 'addons'), (snapshot) => {
+    const val = snapshot.val();
+    if(val){
+      addonsData = Object.entries(val).map(([id, data]) => ({ id, ...data }));
+    }else{
+      addonsData = [];
+    }
+    addonsLoaded = true;
+    renderAddons();
+    renderAddonsAdminList();
+    updateStats();
+    checkLoadingDone();
+  }, (error) => {
+    console.error('Erro addons:', error);
+    addonsLoaded = true;
+    checkLoadingDone();
+  });
+
+  // Chaves
+  onValue(ref(db, 'keys'), (snapshot) => {
+    const val = snapshot.val();
+    if(val){
+      keysData = Object.entries(val).map(([id, data]) => ({ id, ...data }));
+    }else{
+      keysData = [];
+    }
+    keysLoaded = true;
+    renderKeyList();
+    checkLoadingDone();
+  }, (error) => {
+    console.error('Erro chaves:', error);
+    keysLoaded = true;
+    checkLoadingDone();
+  });
+
+  // Criadores
+  onValue(ref(db, 'creators'), (snapshot) => {
+    const val = snapshot.val();
+    if(val){
+      creatorsData = Object.entries(val).map(([id, data]) => ({ id, ...data }));
+    }else{
+      creatorsData = [];
+    }
+    creatorsLoaded = true;
+    renderCreatorsList();
+    renderAddons();
+    checkLoadingDone();
+  }, (error) => {
+    console.error('Erro criadores:', error);
+    creatorsLoaded = true;
+    checkLoadingDone();
+  });
+}
+
+function checkLoadingDone(){
+  if(addonsLoaded && keysLoaded && creatorsLoaded){
+    const overlay = $('loadingOverlay');
+    if(overlay){
+      overlay.classList.add('hide');
+      setTimeout(() => overlay.remove(), 500);
+    }
+  }
+}
+
+/* =========================================================
+   LOGIN ADMIN
+   ========================================================= */
 function tryLogin(pwd){
   if(pwd.trim() === PWD_OBF){
     localStorage.setItem(ADMIN_SESSION_KEY, JSON.stringify({
@@ -1014,7 +1106,9 @@ document.addEventListener('keydown', e => {
 });
 if(location.hash === '#painel'){ setTimeout(requestAccess, 400); }
 
-/* ================= PREMIUM ================= */
+/* =========================================================
+   PREMIUM
+   ========================================================= */
 function getPremiumSession(){
   try{
     const s = JSON.parse(localStorage.getItem(PREMIUM_SESSION_KEY) || '{}');
@@ -1089,9 +1183,10 @@ function activateKey(){
   }));
 
   if(!found.activatedAt){
-    found.activatedAt = Date.now();
-    found.email = email;
-    saveKeys();
+    update(ref(db, 'keys/' + found.id), {
+      activatedAt: Date.now(),
+      email: email
+    });
   }
 
   updatePremiumUI();
@@ -1100,7 +1195,9 @@ function activateKey(){
   toast('🎉 Premium ativado com sucesso!', 'success');
 }
 
-/* ================= MODAL PREMIUM ================= */
+/* =========================================================
+   MODAL PREMIUM
+   ========================================================= */
 function openPremiumModal(){
   if(isPremiumActive()){ showPremiumInfo(); return; }
   premiumModal.classList.add('open');
@@ -1177,19 +1274,9 @@ function openEmailProof(){
   window.location.href = `mailto:${EMAIL_CONTACT}?subject=${subject}&body=${body}`;
 }
 
-/* ================= CRIADORES ================= */
-function saveCreators(){
-  try{ localStorage.setItem(CREATORS_STORAGE_KEY, JSON.stringify(creatorsData)); }catch{}
-}
-function loadCreators(){
-  try{
-    const raw = localStorage.getItem(CREATORS_STORAGE_KEY);
-    if(raw){
-      const p = JSON.parse(raw);
-      if(Array.isArray(p)) creatorsData = p;
-    }
-  }catch{}
-}
+/* =========================================================
+   CRIADORES
+   ========================================================= */
 function findCreator(name){
   if(!name) return null;
   const n = name.toLowerCase().trim();
@@ -1204,9 +1291,9 @@ function addCreator(){
   if(!/^https?:\/\//i.test(youtube)){ toast('Link do YouTube inválido (deve começar com https://).', 'error'); return; }
 
   if(editingCreatorName){
-    const idx = creatorsData.findIndex(c => c.name.toLowerCase() === editingCreatorName.toLowerCase());
-    if(idx !== -1){
-      creatorsData[idx] = { name: name, youtube: youtube };
+    const existing = creatorsData.find(c => c.name.toLowerCase() === editingCreatorName.toLowerCase());
+    if(existing){
+      update(ref(db, 'creators/' + existing.id), { name: name, youtube: youtube });
       toast(`Criador "${name}" atualizado!`, 'success');
     }
     editingCreatorName = null;
@@ -1214,13 +1301,11 @@ function addCreator(){
     if(findCreator(name)){
       toast('Já existe um criador com esse nome.', 'error'); return;
     }
-    creatorsData.push({ name: name, youtube: youtube });
+    const newRef = push(ref(db, 'creators'));
+    set(newRef, { name: name, youtube: youtube });
     toast(`Criador "${name}" adicionado!`, 'success');
   }
 
-  saveCreators();
-  renderCreatorsList();
-  renderAddons();
   $('creatorName').value = '';
   $('creatorYouTube').value = '';
 }
@@ -1239,10 +1324,7 @@ function deleteCreator(name){
   const c = findCreator(name);
   if(!c){ toast('Criador não encontrado.', 'error'); return; }
   if(!confirm(`Excluir criador "${c.name}"?\n\nO YouTube dele não vai mais aparecer nos cards.`)) return;
-  creatorsData = creatorsData.filter(x => x.name.toLowerCase() !== c.name.toLowerCase());
-  saveCreators();
-  renderCreatorsList();
-  renderAddons();
+  remove(ref(db, 'creators/' + c.id));
   toast(`Criador "${c.name}" excluído.`, 'success');
 }
 function renderCreatorsList(){
@@ -1280,7 +1362,9 @@ function renderCreatorsList(){
   `;
 }
 
-/* ================= RENDER ADDONS ================= */
+/* =========================================================
+   RENDER ADDONS
+   ========================================================= */
 const catNames = {
   utility:'Utilitários', interface:'Interface',
   gameplay:'Gameplay', visual:'Visuais', performance:'Performance'
@@ -1343,10 +1427,10 @@ function createCard(a){
 
   const adminActions = logged ? `
     <div class="admin-card-actions show">
-      <button class="edit" title="Editar" onclick="editAddon(${a.id}); event.stopPropagation();">
+      <button class="edit" title="Editar" onclick="editAddon('${a.id}'); event.stopPropagation();">
         <i class="fas fa-pen"></i>
       </button>
-      <button class="del" title="Excluir" onclick="deleteAddon(${a.id}); event.stopPropagation();">
+      <button class="del" title="Excluir" onclick="deleteAddon('${a.id}'); event.stopPropagation();">
         <i class="fas fa-trash"></i>
       </button>
     </div>
@@ -1449,7 +1533,9 @@ function clearAuthorFilter(){
   renderAddons();
 }
 
-/* ================= ÍCONE ================= */
+/* =========================================================
+   ÍCONE
+   ========================================================= */
 function switchIconTab(tabId){
   currentIconTab = tabId;
   document.querySelectorAll('.icon-tab').forEach(t => {
@@ -1520,7 +1606,9 @@ function getSelectedIcon(){
   return $('addonIcon').value.trim() || 'fas fa-puzzle-piece';
 }
 
-/* ================= FORM ADDON ================= */
+/* =========================================================
+   FORM ADDON
+   ========================================================= */
 function setIconForEdit(icon){
   switchIconTab('icon-fa');
   $('addonIcon').value = 'fas fa-puzzle-piece';
@@ -1558,7 +1646,7 @@ function resetAddonForm(){
   $('addTabLabel').textContent = 'Adicionar Addon';
   $('submitAddonBtn').innerHTML = '<i class="fas fa-plus"></i> <span>Adicionar Addon</span>';
   $('cancelEditBtn').style.display = 'none';
-  $('addNote').innerHTML = '<i class="fas fa-lock"></i><span>Sessão autenticada · alterações salvas localmente neste navegador</span>';
+  $('addNote').innerHTML = '<i class="fas fa-lock"></i><span>Sessão autenticada · dados sincronizados com a nuvem</span>';
 }
 
 function cancelEdit(){
@@ -1602,28 +1690,22 @@ $('addAddonForm').addEventListener('submit', e => {
   };
 
   if(editingId){
-    const idx = addonsData.findIndex(a => a.id === parseInt(editingId));
-    if(idx === -1){ toast('Addon não encontrado.', 'error'); return; }
-    addonsData[idx] = { ...addonsData[idx], ...addonData };
+    update(ref(db, 'addons/' + editingId), addonData);
     toast(`"${addonData.name}" atualizado!`, 'success');
   }else{
-    const newAddon = {
-      id: addonsData.length ? Math.max(...addonsData.map(a=>a.id)) + 1 : 1,
-      ...addonData,
-      date: new Date().toISOString().split('T')[0]
-    };
-    addonsData.unshift(newAddon);
+    addonData.date = new Date().toISOString().split('T')[0];
+    const newRef = push(ref(db, 'addons'));
+    set(newRef, addonData);
     toast(`"${addonData.name}" adicionado!`, 'success');
   }
 
-  saveAddons();
-  renderAddons();
-  renderAddonsAdminList();
   resetAddonForm();
   switchAdminTab(document.querySelector('.admin-tab[data-pane="pane-manage"]'));
 });
 
-/* ================= EDITAR / EXCLUIR ================= */
+/* =========================================================
+   EDITAR / EXCLUIR
+   ========================================================= */
 function editAddon(id){
   if(!hasValidSession()){ toast('Faça login primeiro.', 'error'); return; }
   const a = addonsData.find(x => x.id === id);
@@ -1655,11 +1737,7 @@ function deleteAddon(id){
   const a = addonsData.find(x => x.id === id);
   if(!a){ toast('Addon não encontrado.', 'error'); return; }
   if(!confirm(`Excluir "${a.name}"?\n\nEssa ação não pode ser desfeita.`)) return;
-
-  addonsData = addonsData.filter(x => x.id !== id);
-  saveAddons();
-  renderAddons();
-  renderAddonsAdminList();
+  remove(ref(db, 'addons/' + id));
   toast(`"${a.name}" excluído.`, 'success');
 }
 
@@ -1684,10 +1762,10 @@ function renderAddonsAdminList(){
           <p>${catNames[a.category]||a.category} · v${escapeHtml(a.version)} · ${escapeHtml(a.author)}</p>
         </div>
         <div class="addon-admin-actions">
-          <button class="edit" title="Editar" onclick="editAddon(${a.id})">
+          <button class="edit" title="Editar" onclick="editAddon('${a.id}')">
             <i class="fas fa-pen"></i>
           </button>
-          <button class="del" title="Excluir" onclick="deleteAddon(${a.id})">
+          <button class="del" title="Excluir" onclick="deleteAddon('${a.id}')">
             <i class="fas fa-trash"></i>
           </button>
         </div>
@@ -1696,7 +1774,9 @@ function renderAddonsAdminList(){
   }).join('');
 }
 
-/* ================= CHAVES ================= */
+/* =========================================================
+   CHAVES
+   ========================================================= */
 function randomStr(n){
   const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
   let s = '';
@@ -1711,27 +1791,27 @@ function generateKey(){
   const days = parseInt($('keyDuration').value);
   const email = $('keyEmail').value.trim().toLowerCase();
 
-  const newKey = {
-    key: generateRandomKey(),
+  let newKeyStr = generateRandomKey();
+  let attempts = 0;
+  while(keysData.find(k => k.key === newKeyStr) && attempts < 10){
+    newKeyStr = generateRandomKey();
+    attempts++;
+  }
+
+  const newKeyData = {
+    key: newKeyStr,
     days: days,
     email: email || null,
     createdAt: Date.now(),
     activatedAt: null
   };
 
-  let attempts = 0;
-  while(keysData.find(k => k.key === newKey.key) && attempts < 10){
-    newKey.key = generateRandomKey();
-    attempts++;
-  }
+  const newRef = push(ref(db, 'keys'));
+  set(newRef, newKeyData);
 
-  keysData.unshift(newKey);
-  saveKeys();
-
-  lastGeneratedKey = newKey.key;
-  $('keyValue').textContent = newKey.key;
+  lastGeneratedKey = newKeyStr;
+  $('keyValue').textContent = newKeyStr;
   $('keyDisplay').classList.add('show');
-  renderKeyList();
   toast('✅ Chave gerada! Envie no privado pro cliente.', 'success');
 }
 function copyGeneratedKey(){
@@ -1806,13 +1886,13 @@ function renderKeyList(){
 }
 function clearAllKeys(){
   if(!confirm('Remover todas as chaves expiradas?')) return;
-  keysData = keysData.filter(k => {
-    if(!k.activatedAt) return true;
+  keysData.forEach(k => {
+    if(!k.activatedAt) return;
     const exp = k.activatedAt + k.days * 86400000;
-    return Date.now() <= exp;
+    if(Date.now() > exp){
+      remove(ref(db, 'keys/' + k.id));
+    }
   });
-  saveKeys();
-  renderKeyList();
   toast('Chaves expiradas removidas.', 'success');
 }
 function switchAdminTab(btn){
@@ -1825,33 +1905,9 @@ function switchAdminTab(btn){
   if(btn.dataset.pane === 'pane-creators') renderCreatorsList();
 }
 
-/* ================= PERSISTÊNCIA ================= */
-function saveAddons(){
-  try{ localStorage.setItem(ADDONS_STORAGE_KEY, JSON.stringify(addonsData)); }catch{}
-}
-function loadAddons(){
-  try{
-    const raw = localStorage.getItem(ADDONS_STORAGE_KEY);
-    if(raw){
-      const p = JSON.parse(raw);
-      if(Array.isArray(p)) addonsData = p;
-    }
-  }catch{}
-}
-function saveKeys(){
-  try{ localStorage.setItem(KEYS_STORAGE_KEY, JSON.stringify(keysData)); }catch{}
-}
-function loadKeys(){
-  try{
-    const raw = localStorage.getItem(KEYS_STORAGE_KEY);
-    if(raw){
-      const p = JSON.parse(raw);
-      if(Array.isArray(p)) keysData = p;
-    }
-  }catch{}
-}
-
-/* ================= EVENTOS ================= */
+/* =========================================================
+   EVENTOS
+   ========================================================= */
 applyFiltersBtn.addEventListener('click', applyFilters);
 searchFilter.addEventListener('keyup', e => { if(e.key === 'Enter') applyFilters(); });
 categoryFilter.addEventListener('change', applyFilters);
@@ -1897,7 +1953,9 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 $('activateKey').addEventListener('keyup', e => { if(e.key === 'Enter') $('activateEmail').focus(); });
 $('activateEmail').addEventListener('keyup', e => { if(e.key === 'Enter') activateKey(); });
 
-/* ================= UTILS ================= */
+/* =========================================================
+   UTILS
+   ========================================================= */
 function escapeHtml(s=''){
   return String(s).replace(/[&<>"']/g, c => ({
     '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
@@ -1913,12 +1971,42 @@ function toast(msg, type='info'){
   setTimeout(() => { el.style.animation = 'toastOut 0.3s forwards'; setTimeout(()=>el.remove(), 300); }, 3400);
 }
 
-/* ================= INIT ================= */
-loadAddons();
-loadKeys();
-loadCreators();
-renderAddons();
-updateStats();
+// Torna funções globais (chamadas nos onclick do HTML)
+window.requestAccess = requestAccess;
+window.logoutAdmin = logoutAdmin;
+window.openAdminPanel = openAdminPanel;
+window.closeAdminPanel = closeAdminPanel;
+window.openPremiumModal = openPremiumModal;
+window.closePremiumModal = closePremiumModal;
+window.selectPlan = selectPlan;
+window.copyPixCode = copyPixCode;
+window.openDiscordProof = openDiscordProof;
+window.openEmailProof = openEmailProof;
+window.activateKey = activateKey;
+window.showPremiumInfo = showPremiumInfo;
+window.closePremiumInfo = closePremiumInfo;
+window.logoutPremium = logoutPremium;
+window.switchAdminTab = switchAdminTab;
+window.switchIconTab = switchIconTab;
+window.removeUploadedIcon = removeUploadedIcon;
+window.resetAddonForm = resetAddonForm;
+window.cancelEdit = cancelEdit;
+window.editAddon = editAddon;
+window.deleteAddon = deleteAddon;
+window.addCreator = addCreator;
+window.editCreator = editCreator;
+window.deleteCreator = deleteCreator;
+window.generateKey = generateKey;
+window.copyGeneratedKey = copyGeneratedKey;
+window.hideKeyDisplay = hideKeyDisplay;
+window.clearAllKeys = clearAllKeys;
+window.filterByAuthor = filterByAuthor;
+window.clearAuthorFilter = clearAuthorFilter;
+
+/* =========================================================
+   INIT
+   ========================================================= */
+initFirebaseSync();
 updatePremiumUI();
 updateAdminUI();
 
