@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<!-- saved from url=(0048)file:///C:/Users/My%20PC/Desktop/Site/index.html -->
-<html lang="pt-br"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Revolution Addon's — Premium Addons para Minecraft Bedrock</title>
-<link rel="stylesheet" href="./Revolution Addon's — Premium Addons para Minecraft Bedrock_files/all.min.css">
-<link rel="preconnect" href="https://fonts.googleapis.com/">
-<link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
-<link href="./Revolution Addon's — Premium Addons para Minecraft Bedrock_files/css2" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#0a0e1a;--bg-2:#0f1524;--surface:#151c2f;--surface-2:#1a2338;
@@ -355,7 +355,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
   .download-row{flex-direction:column}
 }
 </style>
-</head><body style="">
+</head><body>
 
 <!-- BANNER PREMIUM ATIVO -->
 <div class="premium-banner" id="premiumBanner">
@@ -379,12 +379,12 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
     </button>
     <nav id="mainNav">
       <ul>
-        <li><a href="file:///C:/Users/My%20PC/Desktop/Site/index.html#home"><i class="fas fa-house"></i> Início</a></li>
-        <li><a href="file:///C:/Users/My%20PC/Desktop/Site/index.html#addons"><i class="fas fa-puzzle-piece"></i> Addons</a></li>
-        <li><a href="file:///C:/Users/My%20PC/Desktop/Site/index.html#about"><i class="fas fa-circle-info"></i> Sobre</a></li>
-        <li><a href="file:///C:/Users/My%20PC/Desktop/Site/index.html#contact"><i class="fas fa-envelope"></i> Contato</a></li>
-        <li><a href="file:///C:/Users/My%20PC/Desktop/Site/index.html#" class="nav-premium-btn" onclick="openPremiumModal();return false;"><i class="fas fa-crown"></i> Premium</a></li>
-        <li><span class="admin-status" id="adminStatus">
+        <li><a href="#home"><i class="fas fa-house"></i> Início</a></li>
+        <li><a href="#addons"><i class="fas fa-puzzle-piece"></i> Addons</a></li>
+        <li><a href="#about"><i class="fas fa-circle-info"></i> Sobre</a></li>
+        <li><a href="#contact"><i class="fas fa-envelope"></i> Contato</a></li>
+        <li><a href="#" class="nav-premium-btn" onclick="openPremiumModal();return false;"><i class="fas fa-crown"></i> Premium</a></li>
+        <span class="admin-status" id="adminStatus" style="display:none">
           <i class="fas fa-shield-halved"></i> Admin
           <button onclick="logoutAdmin(event)">Sair</button>
         </span></li>
@@ -403,8 +403,8 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
     <h2>A próxima geração de <span class="grad">Addons</span><br>para Minecraft Bedrock</h2>
     <p class="lead">Uma coleção cuidadosamente curada de addons otimizados, seguros e gratuitos para transformar sua experiência no jogo.</p>
     <div class="hero-actions">
-      <a href="file:///C:/Users/My%20PC/Desktop/Site/index.html#addons" class="btn btn-primary"><i class="fas fa-compass"></i> Explorar Addons</a>
-      <a href="file:///C:/Users/My%20PC/Desktop/Site/index.html#" class="btn btn-premium" onclick="openPremiumModal();return false;"><i class="fas fa-crown"></i> Ver Planos Premium</a>
+      <a href="#addons" class="btn btn-primary"><i class="fas fa-compass"></i> Explorar Addons</a>
+      <a href="#" class="btn btn-premium" onclick="openPremiumModal();return false;"><i class="fas fa-crown"></i> Ver Planos Premium</a>
     </div>
   </div>
 </section>
@@ -461,12 +461,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
       <h2>Nossos Addons</h2>
       <p>Todos os addons passam por revisão antes de serem publicados</p>
     </div>
-    <div class="addons-grid" id="addonsGrid">
-      <div class="empty-state">
-        <i class="fas fa-box-open"></i>
-        <h3>Nenhum addon encontrado</h3>
-        <p>Em breve novos addons serão publicados aqui.</p>
-      </div></div>
+    <div class="addons-grid" id="addonsGrid"></div>
     <div class="load-wrap">
       <button class="btn btn-ghost" id="loadMore" style="display:none"><i class="fas fa-plus"></i> Carregar Mais</button>
     </div>
@@ -515,11 +510,11 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
       <div class="footer-col">
         <h4>Categorias</h4>
         <ul>
-          <li><a href="file:///C:/Users/My%20PC/Desktop/Site/index.html#" data-filter="utility"><i class="fas fa-chevron-right"></i> Utilitários</a></li>
-          <li><a href="file:///C:/Users/My%20PC/Desktop/Site/index.html#" data-filter="interface"><i class="fas fa-chevron-right"></i> Interface</a></li>
-          <li><a href="file:///C:/Users/My%20PC/Desktop/Site/index.html#" data-filter="gameplay"><i class="fas fa-chevron-right"></i> Gameplay</a></li>
-          <li><a href="file:///C:/Users/My%20PC/Desktop/Site/index.html#" data-filter="visual"><i class="fas fa-chevron-right"></i> Visuais</a></li>
-          <li><a href="file:///C:/Users/My%20PC/Desktop/Site/index.html#" data-filter="performance"><i class="fas fa-chevron-right"></i> Performance</a></li>
+          <li><a href="#" data-filter="utility"><i class="fas fa-chevron-right"></i> Utilitários</a></li>
+          <li><a href="#" data-filter="interface"><i class="fas fa-chevron-right"></i> Interface</a></li>
+          <li><a href="#" data-filter="gameplay"><i class="fas fa-chevron-right"></i> Gameplay</a></li>
+          <li><a href="#" data-filter="visual"><i class="fas fa-chevron-right"></i> Visuais</a></li>
+          <li><a href="#" data-filter="performance"><i class="fas fa-chevron-right"></i> Performance</a></li>
         </ul>
       </div>
       <div class="footer-col">
@@ -533,13 +528,13 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
         <h4>Contato</h4>
         <ul>
           <li><a href="mailto:arthurfmiranda1993@gmail.com"><i class="fas fa-envelope"></i> arthurfmiranda1993@gmail.com</a></li>
-          <li><a href="file:///C:/Users/My%20PC/Desktop/Site/index.html#"><i class="fas fa-location-dot"></i> Paraná, Brasil</a></li>
+          <li><a href="#"><i class="fas fa-location-dot"></i> Paraná, Brasil</a></li>
           <li><a href="https://discord.gg/KhQj72HD8V" target="_blank"><i class="fab fa-discord"></i> Servidor Discord</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <span>© 2025 Revolution Addon's. Todos os direitos reservados.</span>
+      <span>&copy; 2025 Revolution Addon's. Todos os direitos reservados.</span>
       <span class="badge"><i class="fas fa-check-circle"></i> Feito para Minecraft Bedrock</span>
     </div>
   </div>
@@ -680,11 +675,11 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
 
         <div class="form-field">
           <label>Nome do Addon *</label>
-          <input type="text" id="addonName" required="" placeholder="Ex: Revolution UI Pack">
+          <input type="text" id="addonName" required placeholder="Ex: Revolution UI Pack">
         </div>
         <div class="form-field">
           <label>Categoria *</label>
-          <select id="addonCategory" required="">
+          <select id="addonCategory" required>
             <option value="utility">Utilitários</option>
             <option value="interface">Interface</option>
             <option value="gameplay">Gameplay</option>
@@ -694,15 +689,15 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
         </div>
         <div class="form-field">
           <label>Versão *</label>
-          <input type="text" id="addonVersion" required="" placeholder="1.0.0">
+          <input type="text" id="addonVersion" required placeholder="1.0.0">
         </div>
         <div class="form-field">
           <label>Autor *</label>
-          <input type="text" id="addonAuthor" required="" placeholder="Nome do autor">
+          <input type="text" id="addonAuthor" required placeholder="Nome do autor">
         </div>
         <div class="form-field full">
           <label>Descrição *</label>
-          <textarea id="addonDescription" required="" placeholder="Descreva o addon..."></textarea>
+          <textarea id="addonDescription" required placeholder="Descreva o addon..."></textarea>
         </div>
 
         <!-- ÍCONE COM ABAS -->
@@ -750,11 +745,11 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
         </div>
         <div class="form-field">
           <label>Link B (normal) *</label>
-          <input type="url" id="addonDownloadUrlB" required="" placeholder="https://...">
+          <input type="url" id="addonDownloadUrlB" required placeholder="https://...">
         </div>
         <div class="form-field">
           <label>Link R (normal) *</label>
-          <input type="url" id="addonDownloadUrlR" required="" placeholder="https://...">
+          <input type="url" id="addonDownloadUrlR" required placeholder="https://...">
         </div>
 
         <div class="admin-section-title">
@@ -789,11 +784,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
         <i class="fas fa-info-circle"></i>
         <span>Lista de todos os addons. Use os botões para editar ou excluir.</span>
       </div>
-      <div class="addons-admin-list" id="addonsAdminList">
-      <div style="text-align:center;padding:40px;color:var(--text-mute)">
-        <i class="fas fa-box-open" style="font-size:2.5rem;margin-bottom:14px;opacity:0.4"></i>
-        <p>Nenhum addon cadastrado ainda</p>
-      </div></div>
+      <div class="addons-admin-list" id="addonsAdminList"></div>
     </div>
 
     <!-- ABA 3: GERAR CHAVES -->
@@ -837,11 +828,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
 
     <!-- ABA 4: LISTA DE CHAVES -->
     <div class="admin-pane" id="pane-list">
-      <div id="keyListContainer">
-      <div style="text-align:center;padding:40px;color:var(--text-mute)">
-        <i class="fas fa-key" style="font-size:2.5rem;margin-bottom:14px;opacity:0.4"></i>
-        <p>Nenhuma chave gerada ainda</p>
-      </div></div>
+      <div id="keyListContainer"></div>
     </div>
   </div>
 </div><script>
@@ -1811,5 +1798,5 @@ setInterval(() => {
 }, 60000);
 
 </script>
-
-</body></html>
+</body>
+</html>
