@@ -13,10 +13,11 @@
   --bg:#0a0e1a;--bg-2:#0f1524;--surface:#151c2f;--surface-2:#1a2338;
   --border:rgba(255,255,255,0.08);--border-hi:rgba(255,255,255,0.16);
   --primary:#6366f1;--primary-2:#8b5cf6;--accent:#06b6d4;--pink:#ec4899;
-  --success:#10b981;--warning:#f59e0b;--danger:#ef4444;
+  --success:#10b981;--warning:#f59e0b;--danger:#ef4444;--gold:#fbbf24;
   --text:#e8ecf5;--text-dim:#8b95ad;--text-mute:#5d6784;
   --grad-1:linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#ec4899 100%);
   --grad-2:linear-gradient(135deg,#06b6d4 0%,#6366f1 100%);
+  --grad-premium:linear-gradient(135deg,#fbbf24 0%,#f59e0b 50%,#ec4899 100%);
   --shadow:0 20px 60px -15px rgba(0,0,0,0.6);
   --shadow-glow:0 0 40px -10px rgba(99,102,241,0.5);
 }
@@ -28,7 +29,16 @@ body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(r
 .container{width:min(1240px,92%);margin:0 auto;position:relative;z-index:1}
 h1,h2,h3,h4{font-family:'Space Grotesk',sans-serif;letter-spacing:-0.02em;line-height:1.2}
 
-header{position:sticky;top:0;z-index:100;background:rgba(10,14,26,0.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+/* BANNER PREMIUM ATIVO */
+.premium-banner{position:fixed;top:0;left:0;right:0;z-index:2000;background:var(--grad-premium);color:#1a1000;padding:8px 16px;text-align:center;font-weight:600;font-size:0.85rem;display:none;align-items:center;justify-content:center;gap:12px;box-shadow:0 4px 20px rgba(251,191,36,0.4)}
+.premium-banner.show{display:flex}
+.premium-banner button{background:rgba(0,0,0,0.2);color:#1a1000;border:none;padding:4px 12px;border-radius:6px;cursor:pointer;font-size:0.78rem;font-weight:700}
+.premium-banner button:hover{background:rgba(0,0,0,0.35)}
+body.has-banner header{top:36px}
+body.has-banner{padding-top:0}
+
+/* HEADER */
+header{position:sticky;top:0;z-index:100;background:rgba(10,14,26,0.75);backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);border-bottom:1px solid var(--border);transition:top 0.3s}
 .header-inner{display:flex;justify-content:space-between;align-items:center;padding:16px 0}
 .logo{display:flex;align-items:center;gap:14px;cursor:pointer}
 .logo-mark{width:46px;height:46px;border-radius:12px;background:var(--grad-1);display:grid;place-items:center;font-size:1.3rem;color:white;box-shadow:0 8px 24px -8px rgba(139,92,246,0.7);position:relative;overflow:hidden}
@@ -42,10 +52,13 @@ nav ul{display:flex;list-style:none;gap:8px;align-items:center}
 nav a{color:var(--text-dim);text-decoration:none;font-weight:500;font-size:0.9rem;padding:10px 16px;border-radius:10px;transition:all 0.25s;display:flex;align-items:center;gap:8px}
 nav a:hover{color:var(--text);background:var(--surface)}
 nav a i{font-size:0.85rem;opacity:0.8}
+.nav-premium-btn{background:var(--grad-premium)!important;color:#1a1000!important;font-weight:700!important;box-shadow:0 6px 20px -8px rgba(251,191,36,0.6)}
+.nav-premium-btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px -8px rgba(251,191,36,0.9)!important;background:var(--grad-premium)!important;color:#1a1000!important}
 
 .mobile-menu-btn{display:none;background:var(--surface);border:1px solid var(--border);color:var(--text);font-size:1.2rem;cursor:pointer;width:44px;height:44px;border-radius:12px;transition:all 0.25s}
 .mobile-menu-btn:hover{background:var(--surface-2);border-color:var(--border-hi)}
 
+/* HERO */
 .hero{padding:100px 0 80px;position:relative;text-align:center}
 .hero-badge{display:inline-flex;align-items:center;gap:10px;padding:8px 18px;border-radius:100px;background:rgba(99,102,241,0.12);border:1px solid rgba(99,102,241,0.3);color:#a5b4fc;font-size:0.82rem;font-weight:500;margin-bottom:28px;animation:fadeUp 0.6s ease both}
 .hero-badge .dot{width:8px;height:8px;border-radius:50%;background:var(--success);box-shadow:0 0 12px var(--success);animation:pulse 2s infinite}
@@ -56,14 +69,19 @@ nav a i{font-size:0.85rem;opacity:0.8}
 .hero-actions{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;animation:fadeUp 0.6s 0.3s ease both}
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
+/* BOTÕES */
 .btn{display:inline-flex;align-items:center;gap:10px;padding:14px 26px;border-radius:12px;font-weight:600;font-size:0.95rem;text-decoration:none;border:none;cursor:pointer;transition:all 0.25s;font-family:inherit;white-space:nowrap}
 .btn-primary{background:var(--grad-1);color:white;box-shadow:0 10px 30px -10px rgba(139,92,246,0.6);position:relative;overflow:hidden}
 .btn-primary:hover{transform:translateY(-2px);box-shadow:0 15px 40px -10px rgba(139,92,246,0.8)}
 .btn-ghost{background:var(--surface);color:var(--text);border:1px solid var(--border-hi)}
 .btn-ghost:hover{background:var(--surface-2);border-color:var(--primary);transform:translateY(-2px)}
+.btn-premium{background:var(--grad-premium);color:#1a1000;box-shadow:0 10px 30px -10px rgba(251,191,36,0.6)}
+.btn-premium:hover{transform:translateY(-2px);box-shadow:0 15px 40px -10px rgba(251,191,36,0.9)}
 
+/* FILTROS */
 .filters-wrap{position:sticky;top:78px;z-index:90;padding:20px 0;margin-bottom:40px;background:linear-gradient(180deg,rgba(10,14,26,0.95),rgba(10,14,26,0.7) 70%,transparent)}
-.filters{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:18px;display:grid;grid-template-columns:1.2fr 1.2fr 2fr auto;gap:14px;align-items:end;box-shadow:var(--shadow)}
+body.has-banner .filters-wrap{top:114px}
+.filters{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:18px;display:grid;grid-template-columns:1.2fr 1.2fr 1.2fr 2fr auto;gap:14px;align-items:end;box-shadow:var(--shadow)}
 .filter-field{display:flex;flex-direction:column;gap:7px}
 .filter-field label{font-size:0.72rem;text-transform:uppercase;letter-spacing:0.1em;color:var(--text-mute);font-weight:600}
 .filter-field select,.filter-field input{background:var(--bg-2);border:1px solid var(--border);color:var(--text);padding:11px 14px;border-radius:10px;font-size:0.9rem;font-family:inherit;transition:all 0.2s;width:100%}
@@ -73,46 +91,71 @@ nav a i{font-size:0.85rem;opacity:0.8}
 .search-wrap i{position:absolute;right:14px;top:50%;transform:translateY(-50%);color:var(--text-mute);pointer-events:none;font-size:0.85rem}
 .search-wrap input{padding-right:40px}
 
+/* SEÇÃO */
 .section-head{text-align:center;margin-bottom:48px;padding-top:20px}
 .section-head .eyebrow{font-size:0.78rem;text-transform:uppercase;letter-spacing:0.2em;color:var(--primary);font-weight:600;margin-bottom:12px;display:block}
 .section-head h2{font-size:clamp(1.8rem,4vw,2.6rem);font-weight:700;margin-bottom:12px}
 .section-head p{color:var(--text-dim);max-width:560px;margin:0 auto}
 
+/* GRID DE ADDONS */
 .addons-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px;margin-bottom:40px}
 .addon-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;overflow:hidden;transition:all 0.35s cubic-bezier(0.4,0,0.2,1);position:relative;display:flex;flex-direction:column}
 .addon-card::before{content:'';position:absolute;inset:0;border-radius:20px;padding:1px;background:var(--grad-1);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:0;transition:opacity 0.35s;pointer-events:none}
+.addon-card.premium::before{background:var(--grad-premium)}
 .addon-card:hover{transform:translateY(-6px);border-color:transparent;box-shadow:var(--shadow-glow)}
 .addon-card:hover::before{opacity:1}
+.addon-card.premium:hover{box-shadow:0 0 40px -10px rgba(251,191,36,0.5)}
+.addon-card.locked .addon-body::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 40%,rgba(10,14,26,0.3));pointer-events:none}
+
 .addon-top{padding:22px 22px 0;display:flex;justify-content:space-between;align-items:flex-start}
-.addon-icon{width:64px;height:64px;border-radius:16px;display:grid;place-items:center;font-size:1.6rem;color:white;background:var(--grad-2);box-shadow:0 10px 24px -10px rgba(6,182,212,0.6);position:relative}
+.addon-icon{width:64px;height:64px;border-radius:16px;display:grid;place-items:center;font-size:1.6rem;color:white;background:var(--grad-2);box-shadow:0 10px 24px -10px rgba(6,182,212,0.6);position:relative;overflow:hidden}
+.addon-icon img{width:100%;height:100%;object-fit:contain;padding:6px}
 .addon-icon.cat-utility{background:linear-gradient(135deg,#06b6d4,#0ea5e9)}
 .addon-icon.cat-interface{background:linear-gradient(135deg,#8b5cf6,#a855f7)}
 .addon-icon.cat-gameplay{background:linear-gradient(135deg,#ec4899,#f43f5e)}
 .addon-icon.cat-visual{background:linear-gradient(135deg,#f59e0b,#f97316)}
 .addon-icon.cat-performance{background:linear-gradient(135deg,#10b981,#22c55e)}
+
 .addon-tags{display:flex;flex-direction:column;gap:6px;align-items:flex-end}
 .tag{font-size:0.68rem;font-weight:600;padding:5px 10px;border-radius:100px;letter-spacing:0.05em;text-transform:uppercase}
 .tag-cat{background:rgba(99,102,241,0.15);color:#a5b4fc;border:1px solid rgba(99,102,241,0.25)}
 .tag-ver{background:rgba(16,185,129,0.12);color:#6ee7b7;border:1px solid rgba(16,185,129,0.25)}
-.addon-body{padding:18px 22px 22px;flex:1;display:flex;flex-direction:column}
+.tag-premium{background:var(--grad-premium);color:#1a1000;border:none;font-weight:700;box-shadow:0 4px 12px -4px rgba(251,191,36,0.6)}
+.tag-free{background:rgba(16,185,129,0.15);color:#6ee7b7;border:1px solid rgba(16,185,129,0.3)}
+
+.addon-body{padding:18px 22px 22px;flex:1;display:flex;flex-direction:column;position:relative}
 .addon-title{font-size:1.18rem;font-weight:700;margin-bottom:10px;color:var(--text)}
 .addon-desc{color:var(--text-dim);font-size:0.92rem;line-height:1.6;margin-bottom:18px;flex:1;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .addon-meta-row{display:flex;justify-content:space-between;align-items:center;font-size:0.8rem;color:var(--text-mute);padding-top:16px;border-top:1px dashed var(--border);margin-bottom:16px}
 .addon-meta-row .author{display:flex;align-items:center;gap:7px}
 .addon-meta-row .author i{color:var(--primary)}
+.addon-meta-row .author.clickable{cursor:pointer;transition:all 0.2s}
+.addon-meta-row .author.clickable:hover{color:var(--primary)}
+.addon-meta-row .author.clickable:hover span{text-decoration:underline}
 .addon-meta-row .date{display:flex;align-items:center;gap:7px}
+
 .download-row{display:flex;gap:10px}
-.dl-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 14px;border-radius:12px;font-weight:600;font-size:0.85rem;text-decoration:none;color:white;transition:all 0.25s;position:relative;overflow:hidden;letter-spacing:0.03em}
+.dl-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 14px;border-radius:12px;font-weight:600;font-size:0.85rem;text-decoration:none;color:white;transition:all 0.25s;position:relative;overflow:hidden;letter-spacing:0.03em;border:none;cursor:pointer;font-family:inherit}
 .dl-btn-b{background:linear-gradient(135deg,#3b82f6,#6366f1);box-shadow:0 6px 20px -8px rgba(59,130,246,0.6)}
 .dl-btn-b:hover{transform:translateY(-2px);box-shadow:0 10px 26px -8px rgba(59,130,246,0.9)}
 .dl-btn-r{background:linear-gradient(135deg,#ef4444,#ec4899);box-shadow:0 6px 20px -8px rgba(239,68,68,0.6)}
 .dl-btn-r:hover{transform:translateY(-2px);box-shadow:0 10px 26px -8px rgba(239,68,68,0.9)}
 
+/* BOTÃO PREMIUM */
+.premium-cta{width:100%;padding:14px;border-radius:12px;background:var(--grad-premium);color:#1a1000;font-weight:800;font-size:0.95rem;border:none;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 10px 30px -10px rgba(251,191,36,0.6);transition:all 0.25s;letter-spacing:0.02em}
+.premium-cta:hover{transform:translateY(-2px);box-shadow:0 15px 40px -10px rgba(251,191,36,0.9)}
+.premium-cta i{font-size:1.1rem}
+
+.locked-overlay{display:flex;flex-direction:column;gap:10px;align-items:center;padding:14px;background:rgba(251,191,36,0.06);border:1px dashed rgba(251,191,36,0.3);border-radius:12px;font-size:0.82rem;color:#fcd34d;text-align:center}
+.locked-overlay i{font-size:1.4rem}
+
+/* EMPTY STATE */
 .empty-state{grid-column:1/-1;text-align:center;padding:80px 20px;background:var(--surface);border:1px dashed var(--border-hi);border-radius:20px}
 .empty-state i{font-size:3.5rem;margin-bottom:20px;background:var(--grad-1);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
 .empty-state h3{font-size:1.4rem;margin-bottom:10px}
 .empty-state p{color:var(--text-dim)}
 
+/* STATS */
 .stats-section{padding:80px 0}
 .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
 .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:32px 26px;text-align:center;transition:all 0.3s;position:relative;overflow:hidden}
@@ -122,6 +165,7 @@ nav a i{font-size:0.85rem;opacity:0.8}
 .stat-num{font-size:2.4rem;font-weight:800;font-family:'Space Grotesk',sans-serif;background:var(--grad-2);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:6px}
 .stat-lbl{color:var(--text-dim);font-size:0.9rem;font-weight:500}
 
+/* FOOTER */
 footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;background:linear-gradient(180deg,transparent,rgba(15,21,36,0.6))}
 .footer-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:40px;margin-bottom:50px}
 .footer-brand h3{font-size:1.3rem;margin-bottom:14px;background:var(--grad-2);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent}
@@ -141,15 +185,47 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
 .footer-bottom{padding-top:26px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;color:var(--text-mute);font-size:0.82rem;flex-wrap:wrap;gap:12px}
 .footer-bottom .badge{display:inline-flex;align-items:center;gap:6px;padding:5px 12px;border-radius:100px;background:rgba(16,185,129,0.1);border:1px solid rgba(16,185,129,0.25);color:#6ee7b7;font-size:0.75rem;font-weight:500}
 
-.admin-modal{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);display:none;justify-content:center;align-items:flex-start;padding:40px 20px;overflow-y:auto}
-.admin-modal.open{display:flex}
-.admin-box{background:var(--surface);border:1px solid var(--border-hi);border-radius:22px;width:100%;max-width:760px;padding:36px;box-shadow:var(--shadow);animation:modalIn 0.3s ease}
+/* MODAIS */
+.modal{position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);display:none;justify-content:center;align-items:flex-start;padding:40px 20px;overflow-y:auto}
+.modal.open{display:flex}
+.modal-box{background:var(--surface);border:1px solid var(--border-hi);border-radius:22px;width:100%;max-width:760px;padding:36px;box-shadow:var(--shadow);animation:modalIn 0.3s ease;position:relative}
+.modal-box.narrow{max-width:520px}
 @keyframes modalIn{from{opacity:0;transform:translateY(20px) scale(0.98)}to{opacity:1;transform:translateY(0) scale(1)}}
-.admin-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
-.admin-head h3{font-size:1.4rem;display:flex;align-items:center;gap:12px}
-.admin-head h3 i{color:var(--primary)}
-.admin-close{background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);width:40px;height:40px;border-radius:11px;cursor:pointer;font-size:1rem;transition:all 0.2s}
-.admin-close:hover{background:var(--danger);color:white;border-color:var(--danger)}
+.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px}
+.modal-head h3{font-size:1.4rem;display:flex;align-items:center;gap:12px}
+.modal-head h3 i{color:var(--primary)}
+.modal-head h3.premium-title i{color:var(--gold)}
+.modal-close{background:var(--surface-2);border:1px solid var(--border);color:var(--text-dim);width:40px;height:40px;border-radius:11px;cursor:pointer;font-size:1rem;transition:all 0.2s}
+.modal-close:hover{background:var(--danger);color:white;border-color:var(--danger)}
+
+/* MODAL PREMIUM */
+.plan-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:24px}
+.plan-card{background:var(--bg-2);border:2px solid var(--border);border-radius:16px;padding:22px 16px;text-align:center;cursor:pointer;transition:all 0.25s;position:relative}
+.plan-card:hover{border-color:var(--primary);transform:translateY(-3px)}
+.plan-card.active{border-color:var(--gold);background:rgba(251,191,36,0.08);box-shadow:0 0 30px -10px rgba(251,191,36,0.5)}
+.plan-card.popular::after{content:'MAIS VENDIDO';position:absolute;top:-10px;left:50%;transform:translateX(-50%);background:var(--grad-premium);color:#1a1000;font-size:0.62rem;font-weight:800;padding:3px 10px;border-radius:100px;letter-spacing:0.05em}
+.plan-name{font-size:0.78rem;color:var(--text-mute);text-transform:uppercase;letter-spacing:0.1em;font-weight:600;margin-bottom:8px}
+.plan-price{font-size:2rem;font-weight:800;font-family:'Space Grotesk',sans-serif;background:var(--grad-premium);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:4px}
+.plan-duration{font-size:0.82rem;color:var(--text-dim)}
+
+.payment-box{background:var(--bg-2);border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:20px;text-align:center;display:none}
+.payment-box.show{display:block}
+.qr-wrap{display:flex;flex-direction:column;align-items:center;gap:14px;margin-bottom:18px}
+.qr-wrap canvas,.qr-wrap img{background:white;padding:14px;border-radius:14px;box-shadow:0 8px 24px rgba(0,0,0,0.3)}
+.pix-amount{font-size:1.6rem;font-weight:800;color:var(--gold);font-family:'Space Grotesk',sans-serif}
+.pix-info{background:rgba(99,102,241,0.06);border:1px solid rgba(99,102,241,0.2);border-radius:12px;padding:14px;margin-bottom:14px;text-align:left;font-size:0.85rem}
+.pix-info strong{color:var(--text);display:block;margin-bottom:4px}
+.pix-info span{color:var(--text-dim);word-break:break-all;font-family:monospace;font-size:0.8rem}
+.pix-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.pix-actions .btn{flex:1;min-width:140px;justify-content:center}
+
+.activate-section{margin-top:24px;padding-top:24px;border-top:1px dashed var(--border)}
+.activate-section h4{font-size:1rem;margin-bottom:14px;color:var(--text-dim);text-align:center;font-weight:600}
+.activate-form{display:flex;flex-direction:column;gap:12px}
+.activate-form input{background:var(--bg-2);border:1px solid var(--border);color:var(--text);padding:12px 14px;border-radius:11px;font-family:inherit;font-size:0.92rem}
+.activate-form input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,0.15)}
+
+/* ADMIN */
 .admin-form{display:grid;grid-template-columns:1fr 1fr;gap:18px}
 .admin-form .full{grid-column:1/-1}
 .form-field{display:flex;flex-direction:column;gap:8px}
@@ -160,14 +236,50 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
 .admin-actions{grid-column:1/-1;display:flex;gap:12px;margin-top:10px;flex-wrap:wrap}
 .admin-note{grid-column:1/-1;padding:14px 18px;border-radius:12px;background:rgba(6,182,212,0.08);border:1px solid rgba(6,182,212,0.25);color:#67e8f9;font-size:0.85rem;display:flex;gap:10px;align-items:center}
 
+/* TOGGLE GRÁTIS/PREMIUM */
+.type-toggle{display:flex;gap:10px;grid-column:1/-1}
+.type-btn{flex:1;padding:14px;border-radius:12px;background:var(--bg-2);border:2px solid var(--border);color:var(--text-dim);cursor:pointer;font-family:inherit;font-size:0.9rem;font-weight:600;display:flex;align-items:center;justify-content:center;gap:8px;transition:all 0.25s}
+.type-btn.active.free{border-color:var(--success);background:rgba(16,185,129,0.1);color:#6ee7b7}
+.type-btn.active.premium{border-color:var(--gold);background:rgba(251,191,36,0.1);color:var(--gold)}
+
+/* ABAS ADMIN */
+.admin-tabs{display:flex;gap:8px;margin-bottom:24px;border-bottom:1px solid var(--border);padding-bottom:14px}
+.admin-tab{padding:10px 18px;border-radius:10px;background:transparent;border:none;color:var(--text-dim);cursor:pointer;font-family:inherit;font-size:0.9rem;font-weight:600;transition:all 0.2s;display:flex;align-items:center;gap:8px}
+.admin-tab:hover{background:var(--surface-2);color:var(--text)}
+.admin-tab.active{background:var(--primary);color:white}
+.admin-pane{display:none}
+.admin-pane.active{display:block}
+
+/* GERADOR DE CHAVES */
+.keygen-form{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:20px;align-items:flex-end}
+.keygen-form .form-field{flex:1;min-width:180px}
+.key-display{background:var(--bg-2);border:2px dashed var(--gold);border-radius:14px;padding:22px;text-align:center;margin-bottom:20px;display:none}
+.key-display.show{display:block}
+.key-value{font-family:monospace;font-size:1.4rem;font-weight:700;color:var(--gold);letter-spacing:0.05em;margin-bottom:14px;word-break:break-all}
+.key-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+
+.key-table{width:100%;border-collapse:collapse;font-size:0.85rem}
+.key-table th,.key-table td{padding:12px;text-align:left;border-bottom:1px solid var(--border)}
+.key-table th{color:var(--text-mute);font-size:0.72rem;text-transform:uppercase;letter-spacing:0.08em;font-weight:600}
+.key-table td{color:var(--text-dim)}
+.key-table tr:hover{background:var(--surface-2)}
+.key-table code{background:var(--bg-2);padding:4px 8px;border-radius:6px;font-family:monospace;color:var(--text);font-size:0.82rem}
+.status-badge{padding:3px 10px;border-radius:100px;font-size:0.72rem;font-weight:600}
+.status-livre{background:rgba(99,102,241,0.15);color:#a5b4fc}
+.status-ativa{background:rgba(16,185,129,0.15);color:#6ee7b7}
+.status-expirada{background:rgba(239,68,68,0.15);color:#fca5a5}
+
+/* TOASTS */
 .toast{position:fixed;top:24px;right:24px;z-index:10000;background:var(--surface);border:1px solid var(--border-hi);border-radius:14px;padding:16px 20px;box-shadow:var(--shadow);display:flex;align-items:center;gap:12px;font-size:0.9rem;font-weight:500;animation:toastIn 0.35s cubic-bezier(0.4,0,0.2,1);max-width:340px}
 .toast.success{border-left:3px solid var(--success)}
 .toast.error{border-left:3px solid var(--danger)}
 .toast.info{border-left:3px solid var(--accent)}
+.toast.warn{border-left:3px solid var(--warning)}
 .toast i{font-size:1.1rem}
 .toast.success i{color:var(--success)}
 .toast.error i{color:var(--danger)}
 .toast.info i{color:var(--accent)}
+.toast.warn i{color:var(--warning)}
 @keyframes toastIn{from{opacity:0;transform:translateX(100%)}to{opacity:1;transform:translateX(0)}}
 @keyframes toastOut{to{opacity:0;transform:translateX(100%)}}
 
@@ -178,6 +290,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
   .filters .search-wrap{grid-column:1/-1}
   .filters .btn{grid-column:1/-1}
   .footer-grid{grid-template-columns:1fr 1fr}
+  .plan-grid{grid-template-columns:1fr}
 }
 @media(max-width:768px){
   .header-inner{padding:12px 0}
@@ -189,7 +302,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
   .hero h2{font-size:2rem}
   .hero p.lead{font-size:1rem}
   .admin-form{grid-template-columns:1fr}
-  .admin-box{padding:24px}
+  .modal-box{padding:24px}
   .footer-grid{grid-template-columns:1fr;gap:30px}
   .footer-bottom{flex-direction:column;text-align:center}
   .toast{right:12px;left:12px;max-width:none}
@@ -203,9 +316,16 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
   .download-row{flex-direction:column}
 }
 </style>
-</head>
-<body>
+</head><body>
 
+<!-- BANNER PREMIUM ATIVO -->
+<div class="premium-banner" id="premiumBanner">
+  <i class="fas fa-crown"></i>
+  <span id="premiumBannerText">Premium ativo</span>
+  <button onclick="showPremiumInfo()">Detalhes</button>
+</div>
+
+<!-- HEADER -->
 <header>
   <div class="container header-inner">
     <div class="logo" onclick="scrollTo({top:0,behavior:'smooth'})">
@@ -224,11 +344,13 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
         <li><a href="#addons"><i class="fas fa-puzzle-piece"></i> Addons</a></li>
         <li><a href="#about"><i class="fas fa-circle-info"></i> Sobre</a></li>
         <li><a href="#contact"><i class="fas fa-envelope"></i> Contato</a></li>
+        <li><a href="#" class="nav-premium-btn" onclick="openPremiumModal();return false;"><i class="fas fa-crown"></i> Premium</a></li>
       </ul>
     </nav>
   </div>
 </header>
 
+<!-- HERO -->
 <section class="hero" id="home">
   <div class="container">
     <div class="hero-badge">
@@ -239,11 +361,12 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
     <p class="lead">Uma coleção cuidadosamente curada de addons otimizados, seguros e gratuitos para transformar sua experiência no jogo.</p>
     <div class="hero-actions">
       <a href="#addons" class="btn btn-primary"><i class="fas fa-compass"></i> Explorar Addons</a>
-      <a href="https://discord.gg/KhQj72HD8V" target="_blank" class="btn btn-ghost"><i class="fab fa-discord"></i> Entrar no Discord</a>
+      <a href="#" class="btn btn-premium" onclick="openPremiumModal();return false;"><i class="fas fa-crown"></i> Ver Planos Premium</a>
     </div>
   </div>
 </section>
 
+<!-- FILTROS -->
 <div class="filters-wrap">
   <div class="container">
     <div class="filters">
@@ -259,16 +382,24 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
         </select>
       </div>
       <div class="filter-field">
-        <label for="sortFilter"><i class="fas fa-arrow-down-wide-short"></i> Ordenar por</label>
+        <label for="typeFilter"><i class="fas fa-tag"></i> Tipo</label>
+        <select id="typeFilter">
+          <option value="all">Todos</option>
+          <option value="free">🆓 Grátis</option>
+          <option value="premium">💎 Premium</option>
+        </select>
+      </div>
+      <div class="filter-field">
+        <label for="sortFilter"><i class="fas fa-arrow-down-wide-short"></i> Ordenar</label>
         <select id="sortFilter">
           <option value="newest">Mais Recentes</option>
           <option value="name">Nome (A-Z)</option>
-          <option value="category">Categoria</option>
+          <option value="author">Criador (A-Z)</option>
         </select>
       </div>
       <div class="filter-field search-wrap">
         <label for="searchFilter"><i class="fas fa-magnifying-glass"></i> Buscar</label>
-        <input type="text" id="searchFilter" placeholder="Digite o nome, descrição ou autor...">
+        <input type="text" id="searchFilter" placeholder="Nome, descrição, autor ou criador...">
         <i class="fas fa-search"></i>
       </div>
       <div class="filter-field">
@@ -280,6 +411,22 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
   </div>
 </div>
 
+<!-- BARRA DE FILTRO ATIVO (CRIADOR) -->
+<div id="authorFilterBar" style="display:none;padding:0 0 20px">
+  <div class="container">
+    <div style="background:var(--surface);border:1px solid var(--primary);border-radius:14px;padding:12px 18px;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px">
+      <span style="display:flex;align-items:center;gap:10px;color:#a5b4fc;font-weight:600">
+        <i class="fas fa-user"></i>
+        Mostrando addons de: <strong id="authorFilterName" style="color:var(--text)"></strong>
+      </span>
+      <button class="btn btn-ghost" style="padding:8px 14px;font-size:0.85rem" onclick="clearAuthorFilter()">
+        <i class="fas fa-times"></i> Limpar filtro
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ADDONS -->
 <section id="addons" style="padding-top:20px">
   <div class="container">
     <div class="section-head">
@@ -294,6 +441,7 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
   </div>
 </section>
 
+<!-- STATS -->
 <section class="stats-section" id="about">
   <div class="container">
     <div class="section-head">
@@ -307,19 +455,20 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
         <div class="stat-lbl">Addons Disponíveis</div>
       </div>
       <div class="stat-card">
-        <i class="fas fa-download"></i>
-        <div class="stat-num">100%</div>
-        <div class="stat-lbl">Gratuito</div>
+        <i class="fas fa-crown"></i>
+        <div class="stat-num" id="totalPremium">0</div>
+        <div class="stat-lbl">Addons Premium</div>
       </div>
       <div class="stat-card">
-        <i class="fas fa-shield-halved"></i>
-        <div class="stat-num">Seguro</div>
-        <div class="stat-lbl">Testado & Verificado</div>
+        <i class="fas fa-users"></i>
+        <div class="stat-num" id="totalAuthors">0</div>
+        <div class="stat-lbl">Criadores</div>
       </div>
     </div>
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer id="contact">
   <div class="container">
     <div class="footer-grid">
@@ -365,110 +514,299 @@ footer{border-top:1px solid var(--border);padding:70px 0 30px;margin-top:80px;ba
   </div>
 </footer>
 
-<div class="admin-modal" id="adminModal">
-  <div class="admin-box">
-    <div class="admin-head">
-      <h3><i class="fas fa-shield-halved"></i> Painel de Gerenciamento</h3>
-      <button class="admin-close" id="adminClose"><i class="fas fa-times"></i></button>
+<!-- MODAL PREMIUM -->
+<div class="modal" id="premiumModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 class="premium-title"><i class="fas fa-crown"></i> Desbloqueie o Premium</h3>
+      <button class="modal-close" onclick="closePremiumModal()"><i class="fas fa-times"></i></button>
     </div>
-    <form class="admin-form" id="addAddonForm">
-      <div class="admin-note full">
-        <i class="fas fa-lock"></i>
-        <span>Sessão autenticada · alterações salvas localmente neste navegador</span>
+
+    <p style="color:var(--text-dim);margin-bottom:24px;text-align:center">
+      Com o Premium você desbloqueia <strong style="color:var(--gold)">TODOS os addons exclusivos</strong> por tempo limitado.
+    </p>
+
+    <div class="plan-grid" id="planGrid">
+      <div class="plan-card" data-plan="mensal" onclick="selectPlan('mensal')">
+        <div class="plan-name">Mensal</div>
+        <div class="plan-price">R$ 5</div>
+        <div class="plan-duration">30 dias de acesso</div>
       </div>
-      <div class="form-field">
-        <label>Nome do Addon *</label>
-        <input type="text" id="addonName" required placeholder="Ex: Revolution UI Pack">
+      <div class="plan-card popular" data-plan="trimestral" onclick="selectPlan('trimestral')">
+        <div class="plan-name">Trimestral</div>
+        <div class="plan-price">R$ 10</div>
+        <div class="plan-duration">90 dias de acesso</div>
       </div>
-      <div class="form-field">
-        <label>Categoria *</label>
-        <select id="addonCategory" required>
-          <option value="utility">Utilitários</option>
-          <option value="interface">Interface</option>
-          <option value="gameplay">Gameplay</option>
-          <option value="visual">Visuais</option>
-          <option value="performance">Performance</option>
-        </select>
+      <div class="plan-card" data-plan="anual" onclick="selectPlan('anual')">
+        <div class="plan-name">Anual</div>
+        <div class="plan-price">R$ 15</div>
+        <div class="plan-duration">365 dias de acesso</div>
       </div>
-      <div class="form-field">
-        <label>Versão *</label>
-        <input type="text" id="addonVersion" required placeholder="1.0.0">
+    </div>
+
+    <div class="payment-box" id="paymentBox">
+      <div class="pix-amount" id="pixAmount">R$ 5,00</div>
+      <p style="color:var(--text-dim);font-size:0.85rem;margin-bottom:18px">Escaneie o QR Code abaixo no app do seu banco</p>
+
+      <div class="qr-wrap">
+        <canvas id="qrCanvas" width="220" height="220"></canvas>
       </div>
-      <div class="form-field">
-        <label>Autor *</label>
-        <input type="text" id="addonAuthor" required placeholder="Nome do autor">
+
+      <div class="pix-info">
+        <strong><i class="fas fa-key"></i> Chave PIX (se o QR não funcionar)</strong>
+        <span id="pixKeyText">arthurfmiranda1993@gmail.com</span>
       </div>
-      <div class="form-field full">
-        <label>Descrição *</label>
-        <textarea id="addonDescription" required placeholder="Descreva o addon..."></textarea>
+
+      <div class="pix-actions">
+        <button class="btn btn-ghost" onclick="copyPixCode()">
+          <i class="fas fa-copy"></i> Copiar código PIX
+        </button>
+        <button class="btn btn-primary" onclick="openDiscordProof()">
+          <i class="fab fa-discord"></i> Enviar no Discord
+        </button>
+        <button class="btn btn-ghost" onclick="openEmailProof()">
+          <i class="fas fa-envelope"></i> Enviar por Email
+        </button>
       </div>
-      <div class="form-field">
-        <label>URL Download B *</label>
-        <input type="url" id="addonDownloadUrlB" required placeholder="https://...">
+    </div>
+
+    <div class="activate-section">
+      <h4><i class="fas fa-key"></i> Já tem uma chave de ativação?</h4>
+      <div class="activate-form">
+        <input type="text" id="activateKey" placeholder="Cole sua chave aqui (ex: REV-A3F9-K7B2-P4Q7)" style="text-transform:uppercase">
+        <input type="email" id="activateEmail" placeholder="Digite o email que você usou na compra">
+        <button class="btn btn-premium" onclick="activateKey()" style="justify-content:center">
+          <i class="fas fa-unlock"></i> Ativar Premium
+        </button>
       </div>
-      <div class="form-field">
-        <label>URL Download R *</label>
-        <input type="url" id="addonDownloadUrlR" required placeholder="https://...">
-      </div>
-      <div class="form-field full">
-        <label>Ícone (classe FontAwesome)</label>
-        <input type="text" id="addonIcon" value="fas fa-puzzle-piece">
-      </div>
-      <div class="admin-actions">
-        <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Adicionar Addon</button>
-        <button type="button" class="btn btn-ghost" id="adminReset"><i class="fas fa-rotate"></i> Limpar</button>
-      </div>
-    </form>
+    </div>
   </div>
 </div>
 
-<script>
+<!-- MODAL INFO PREMIUM -->
+<div class="modal" id="premiumInfoModal">
+  <div class="modal-box narrow">
+    <div class="modal-head">
+      <h3 class="premium-title"><i class="fas fa-crown"></i> Seu Premium</h3>
+      <button class="modal-close" onclick="closePremiumInfo()"><i class="fas fa-times"></i></button>
+    </div>
+    <div style="text-align:center;padding:10px 0">
+      <div style="font-size:3rem;margin-bottom:14px">💎</div>
+      <h3 style="color:var(--gold);margin-bottom:8px">Premium Ativo</h3>
+      <p style="color:var(--text-dim);margin-bottom:20px" id="premiumInfoEmail"></p>
+      <div style="background:var(--bg-2);border-radius:14px;padding:20px;margin-bottom:20px">
+        <div style="font-size:0.75rem;color:var(--text-mute);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:6px">Expira em</div>
+        <div style="font-size:1.4rem;font-weight:700;color:var(--gold)" id="premiumInfoDate"></div>
+        <div style="font-size:0.85rem;color:var(--text-dim);margin-top:4px" id="premiumInfoDays"></div>
+      </div>
+      <button class="btn btn-ghost" onclick="logoutPremium()" style="width:100%;justify-content:center">
+        <i class="fas fa-sign-out-alt"></i> Sair do Premium
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL ADMIN -->
+<div class="modal" id="adminModal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3><i class="fas fa-shield-halved"></i> Painel de Gerenciamento</h3>
+      <button class="modal-close" onclick="closeAdminPanel()"><i class="fas fa-times"></i></button>
+    </div>
+
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-pane="pane-add" onclick="switchAdminTab(this)">
+        <i class="fas fa-plus"></i> Adicionar Addon
+      </button>
+      <button class="admin-tab" data-pane="pane-keys" onclick="switchAdminTab(this)">
+        <i class="fas fa-key"></i> Gerar Chaves
+      </button>
+      <button class="admin-tab" data-pane="pane-list" onclick="switchAdminTab(this)">
+        <i class="fas fa-list"></i> Lista de Chaves
+      </button>
+    </div>
+
+    <!-- ABA 1: ADICIONAR -->
+    <div class="admin-pane active" id="pane-add">
+      <form class="admin-form" id="addAddonForm">
+        <div class="admin-note full">
+          <i class="fas fa-lock"></i>
+          <span>Sessão autenticada · alterações salvas localmente neste navegador</span>
+        </div>
+
+        <div class="type-toggle">
+          <button type="button" class="type-btn active free" data-type="free" onclick="setAddonType('free')">
+            <i class="fas fa-gift"></i> 🆓 Grátis
+          </button>
+          <button type="button" class="type-btn premium" data-type="premium" onclick="setAddonType('premium')">
+            <i class="fas fa-crown"></i> 💎 Premium
+          </button>
+        </div>
+
+        <div class="form-field">
+          <label>Nome do Addon *</label>
+          <input type="text" id="addonName" required placeholder="Ex: Revolution UI Pack">
+        </div>
+        <div class="form-field">
+          <label>Categoria *</label>
+          <select id="addonCategory" required>
+            <option value="utility">Utilitários</option>
+            <option value="interface">Interface</option>
+            <option value="gameplay">Gameplay</option>
+            <option value="visual">Visuais</option>
+            <option value="performance">Performance</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Versão *</label>
+          <input type="text" id="addonVersion" required placeholder="1.0.0">
+        </div>
+        <div class="form-field">
+          <label>Autor *</label>
+          <input type="text" id="addonAuthor" required placeholder="Nome do autor">
+        </div>
+        <div class="form-field full">
+          <label>Descrição *</label>
+          <textarea id="addonDescription" required placeholder="Descreva o addon..."></textarea>
+        </div>
+        <div class="form-field">
+          <label>URL Download B *</label>
+          <input type="url" id="addonDownloadUrlB" required placeholder="https://...">
+        </div>
+        <div class="form-field">
+          <label>URL Download R *</label>
+          <input type="url" id="addonDownloadUrlR" required placeholder="https://...">
+        </div>
+        <div class="form-field full">
+          <label>Ícone (classe FontAwesome ou URL de imagem)</label>
+          <input type="text" id="addonIcon" value="fas fa-puzzle-piece">
+        </div>
+        <div class="admin-actions">
+          <button type="submit" class="btn btn-primary"><i class="fas fa-plus"></i> Adicionar Addon</button>
+          <button type="button" class="btn btn-ghost" onclick="resetAddonForm()"><i class="fas fa-rotate"></i> Limpar</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- ABA 2: GERAR CHAVES -->
+    <div class="admin-pane" id="pane-keys">
+      <div class="admin-note" style="margin-bottom:20px">
+        <i class="fas fa-info-circle"></i>
+        <span>Gere chaves e envie no privado para o cliente após receber o pagamento</span>
+      </div>
+
+      <div class="keygen-form">
+        <div class="form-field">
+          <label>Duração</label>
+          <select id="keyDuration">
+            <option value="30">30 dias (Mensal - R$5)</option>
+            <option value="90">90 dias (Trimestral - R$10)</option>
+            <option value="365">365 dias (Anual - R$15)</option>
+          </select>
+        </div>
+        <div class="form-field">
+          <label>Email do cliente (opcional)</label>
+          <input type="email" id="keyEmail" placeholder="cliente@email.com">
+        </div>
+        <button class="btn btn-premium" onclick="generateKey()" style="height:46px">
+          <i class="fas fa-dice"></i> Gerar Chave
+        </button>
+      </div>
+
+      <div class="key-display" id="keyDisplay">
+        <div style="font-size:0.75rem;color:var(--text-mute);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:10px">Chave gerada</div>
+        <div class="key-value" id="keyValue">REV-XXXX-XXXX-XXXX</div>
+        <div class="key-actions">
+          <button class="btn btn-primary" onclick="copyGeneratedKey()">
+            <i class="fas fa-copy"></i> Copiar Chave
+          </button>
+          <button class="btn btn-ghost" onclick="hideKeyDisplay()">
+            <i class="fas fa-check"></i> OK
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABA 3: LISTA -->
+    <div class="admin-pane" id="pane-list">
+      <div id="keyListContainer"></div>
+    </div>
+  </div>
+</div><script>
 /* =========================================================
-   REVOLUTION ADDON'S — SISTEMA INTERNO
+   REVOLUTION ADDON'S — SISTEMA COMPLETO
    ========================================================= */
 
-let addonsData = [];
-let currentFilter = 'all';
-let currentSort = 'newest';
-let currentSearch = '';
-let displayedAddons = 9;
+// ====== CONFIGURAÇÃO ======
+const PIX_KEY = 'arthurfmiranda1993@gmail.com';
+const DISCORD_URL = 'https://discord.gg/KhQj72HD8V';
+const EMAIL_CONTACT = 'arthurfmiranda1993@gmail.com';
 
-const ADMIN_SESSION_KEY = 'rv_session_v2';
-const STORAGE_KEY = 'revolutionAddonsV2';
+// Códigos PIX copia-e-cola (por plano)
+const PIX_CODES = {
+  mensal: '00020126500014BR.GOV.BCB.PIX0128arthurfmiranda1993@gmail.com52040000530398654045.005802BR5923ARTHUR FERNANDO MIRANDA6005IMBAU62070503***63044B7D',
+  trimestral: '00020126500014BR.GOV.BCB.PIX0128arthurfmiranda1993@gmail.com520400005303986540510.005802BR5923ARTHUR FERNANDO MIRANDA6005IMBAU62070503***630428D2',
+  anual: '00020126500014BR.GOV.BCB.PIX0128arthurfmiranda1993@gmail.com520400005303986540515.005802BR5923ARTHUR FERNANDO MIRANDA6005IMBAU62070503***63040783'
+};
+
+const PLAN_DATA = {
+  mensal: { price: 5, days: 30, label: 'Mensal', amount: 'R$ 5,00' },
+  trimestral: { price: 10, days: 90, label: 'Trimestral', amount: 'R$ 10,00' },
+  anual: { price: 15, days: 365, label: 'Anual', amount: 'R$ 15,00' }
+};
+
+// ====== SENHA DO ADMIN (BASE64) ======
+// "TWV0b2Rpc3Rh" = "Metodista" em Base64
+const PWD_B64 = 'TWV0b2Rpc3Rh';
+const PWD_OBF = atob(PWD_B64);
+
+// ====== CHAVES DE STORAGE ======
+const ADMIN_SESSION_KEY = 'rv_session_v3';
+const ADDONS_STORAGE_KEY = 'revolutionAddonsV3';
+const KEYS_STORAGE_KEY = 'revolutionKeysV3';
+const PREMIUM_SESSION_KEY = 'revolutionPremiumV3';
 const SESSION_HOURS = 6;
 
+// ====== ESTADO ======
+let addonsData = [];
+let keysData = [];
+let currentFilter = 'all';
+let currentTypeFilter = 'all';
+let currentSort = 'newest';
+let currentSearch = '';
+let currentAuthorFilter = null;
+let displayedAddons = 9;
+let selectedPlan = null;
+let selectedAddonType = 'free';
+let lastGeneratedKey = null;
+
+// ====== DOM HELPERS ======
 const $ = id => document.getElementById(id);
 const addonsGrid = $('addonsGrid');
 const categoryFilter = $('categoryFilter');
+const typeFilter = $('typeFilter');
 const sortFilter = $('sortFilter');
 const searchFilter = $('searchFilter');
 const applyFiltersBtn = $('applyFilters');
 const loadMoreBtn = $('loadMore');
 const totalAddonsEl = $('totalAddons');
+const totalPremiumEl = $('totalPremium');
+const totalAuthorsEl = $('totalAuthors');
 const adminModal = $('adminModal');
+const premiumModal = $('premiumModal');
+const premiumInfoModal = $('premiumInfoModal');
 const mobileMenuBtn = $('mobileMenuBtn');
 const mainNav = $('mainNav');
 
 /* =========================================================
-   ACESSO OCULTO — SENHA EM BASE64
-   ---------------------------------------------------------
-   "TWV0b2Rpc3Rh" = "Metodista" em Base64
-   Para trocar a senha:
-     1. Acesse https://www.base64encode.org
-     2. Digite sua nova senha e clique em Encode
-     3. Copie o resultado e cole no lugar de TWV0b2Rpc3Rh
+   ACESSO ADMIN (oculto)
    ========================================================= */
-const PWD_B64 = 'TWV0b2Rpc3Rh';
-const PWD_OBF = atob(PWD_B64);
-
 function tryLogin(pwd){
   if(pwd.trim() === PWD_OBF){
-    const session = {
+    localStorage.setItem(ADMIN_SESSION_KEY, JSON.stringify({
       ok: true,
-      exp: Date.now() + SESSION_HOURS*60*60*1000,
-      tok: Math.random().toString(36).slice(2)
-    };
-    localStorage.setItem(ADMIN_SESSION_KEY, JSON.stringify(session));
+      exp: Date.now() + SESSION_HOURS * 60 * 60 * 1000
+    }));
     return true;
   }
   return false;
@@ -496,15 +834,14 @@ function requestAccess(){
 function openAdminPanel(){
   adminModal.classList.add('open');
   document.body.style.overflow = 'hidden';
+  renderKeyList();
 }
 function closeAdminPanel(){
   adminModal.classList.remove('open');
   document.body.style.overflow = '';
 }
 
-/* =========================================================
-   GATILHOS SECRETOS
-   ========================================================= */
+// Gatilhos secretos
 let logoClicks = 0, logoTimer = null;
 document.querySelector('.logo').addEventListener('click', () => {
   logoClicks++;
@@ -523,7 +860,202 @@ document.addEventListener('keydown', e => {
 if(location.hash === '#painel'){ setTimeout(requestAccess, 400); }
 
 /* =========================================================
-   RENDER
+   SISTEMA PREMIUM
+   ========================================================= */
+function getPremiumSession(){
+  try{
+    const s = JSON.parse(localStorage.getItem(PREMIUM_SESSION_KEY) || '{}');
+    if(s.email && s.exp > Date.now()) return s;
+    return null;
+  }catch{ return null; }
+}
+
+function isPremiumActive(){
+  return getPremiumSession() !== null;
+}
+
+function updatePremiumUI(){
+  const s = getPremiumSession();
+  const banner = $('premiumBanner');
+  const body = document.body;
+
+  if(s){
+    banner.classList.add('show');
+    body.classList.add('has-banner');
+    const daysLeft = Math.ceil((s.exp - Date.now()) / (1000*60*60*24));
+    const dateStr = new Date(s.exp).toLocaleDateString('pt-BR');
+    $('premiumBannerText').textContent = `💎 Premium ativo — expira em ${daysLeft} dias (${dateStr})`;
+  }else{
+    banner.classList.remove('show');
+    body.classList.remove('has-banner');
+  }
+}
+
+function showPremiumInfo(){
+  const s = getPremiumSession();
+  if(!s) return;
+  const dateStr = new Date(s.exp).toLocaleDateString('pt-BR');
+  const daysLeft = Math.ceil((s.exp - Date.now()) / (1000*60*60*24));
+  $('premiumInfoEmail').textContent = 'Conta: ' + s.email;
+  $('premiumInfoDate').textContent = dateStr;
+  $('premiumInfoDays').textContent = `(${daysLeft} dias restantes)`;
+  premiumInfoModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closePremiumInfo(){
+  premiumInfoModal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function logoutPremium(){
+  if(!confirm('Tem certeza que quer sair do Premium neste dispositivo?')) return;
+  localStorage.removeItem(PREMIUM_SESSION_KEY);
+  updatePremiumUI();
+  renderAddons();
+  closePremiumInfo();
+  toast('Você saiu do Premium.', 'info');
+}
+
+function activateKey(){
+  const key = $('activateKey').value.trim().toUpperCase();
+  const email = $('activateEmail').value.trim().toLowerCase();
+
+  if(!key){ toast('Digite uma chave.', 'error'); return; }
+  if(!email || !email.includes('@')){ toast('Digite um email válido.', 'error'); return; }
+
+  const found = keysData.find(k => k.key === key);
+  if(!found){ toast('Chave inválida ou não encontrada.', 'error'); return; }
+
+  // Verifica se a chave pertence a outro email
+  if(found.email && found.email !== email){
+    toast('Esta chave já foi usada por outro email.', 'error'); return;
+  }
+
+  // Verifica se a chave expirou (do lado dela, pela data de ativação)
+  if(found.activatedAt){
+    const keyExp = found.activatedAt + found.days * 24 * 60 * 60 * 1000;
+    if(Date.now() > keyExp){
+      toast('Esta chave já expirou.', 'error'); return;
+    }
+  }
+
+  // Ativa
+  const exp = Date.now() + found.days * 24 * 60 * 60 * 1000;
+  localStorage.setItem(PREMIUM_SESSION_KEY, JSON.stringify({
+    key: key,
+    email: email,
+    exp: exp,
+    activatedAt: Date.now()
+  }));
+
+  // Marca a chave como usada
+  if(!found.activatedAt){
+    found.activatedAt = Date.now();
+    found.email = email;
+    saveKeys();
+  }
+
+  updatePremiumUI();
+  renderAddons();
+  closePremiumModal();
+  toast('🎉 Premium ativado com sucesso!', 'success');
+}
+
+/* =========================================================
+   MODAL PREMIUM (COMPRA)
+   ========================================================= */
+function openPremiumModal(){
+  if(isPremiumActive()){
+    showPremiumInfo();
+    return;
+  }
+  premiumModal.classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.querySelectorAll('.plan-card').forEach(c => c.classList.remove('active'));
+  $('paymentBox').classList.remove('show');
+  selectedPlan = null;
+}
+
+function closePremiumModal(){
+  premiumModal.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function selectPlan(plan){
+  selectedPlan = plan;
+  document.querySelectorAll('.plan-card').forEach(c => {
+    c.classList.toggle('active', c.dataset.plan === plan);
+  });
+  const data = PLAN_DATA[plan];
+  $('pixAmount').textContent = data.amount;
+  $('paymentBox').classList.add('show');
+  generateQRCode(PIX_CODES[plan]);
+}
+
+function generateQRCode(text){
+  const canvas = $('qrCanvas');
+  const ctx = canvas.getContext('2d');
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  // Fallback: usa API externa de QR Code (mais simples e confiável)
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  img.onload = () => {
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, 10, 10, canvas.width - 20, canvas.height - 20);
+  };
+  img.onerror = () => {
+    // Se falhar, mostra um placeholder
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    ctx.fillStyle = '#000000';
+    ctx.font = '14px Arial';
+    ctx.textAlign = 'center';
+    ctx.fillText('Use o código PIX', canvas.width/2, canvas.height/2 - 10);
+    ctx.fillText('abaixo', canvas.width/2, canvas.height/2 + 10);
+  };
+  img.src = 'https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=' + encodeURIComponent(text);
+}
+
+function copyPixCode(){
+  if(!selectedPlan){ toast('Escolha um plano primeiro.', 'error'); return; }
+  const code = PIX_CODES[selectedPlan];
+  navigator.clipboard.writeText(code).then(() => {
+    toast('✅ Código PIX copiado! Cole no app do seu banco.', 'success');
+  }).catch(() => {
+    // Fallback
+    const ta = document.createElement('textarea');
+    ta.value = code;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    toast('✅ Código PIX copiado!', 'success');
+  });
+}
+
+function openDiscordProof(){
+  if(!selectedPlan){ toast('Escolha um plano primeiro.', 'error'); return; }
+  const data = PLAN_DATA[selectedPlan];
+  const msg = `Olá! Acabei de fazer o pagamento PIX de ${data.amount} (plano ${data.label}). Segue o comprovante:`;
+  window.open(DISCORD_URL, '_blank');
+  setTimeout(() => {
+    navigator.clipboard.writeText(msg).catch(()=>{});
+    toast('Abri o Discord. A mensagem foi copiada pra você colar!', 'info');
+  }, 400);
+}
+
+function openEmailProof(){
+  if(!selectedPlan){ toast('Escolha um plano primeiro.', 'error'); return; }
+  const data = PLAN_DATA[selectedPlan];
+  const subject = encodeURIComponent(`Comprovante PIX - Plano ${data.label} (${data.amount})`);
+  const body = encodeURIComponent(`Olá!\n\nAcabei de pagar via PIX o valor de ${data.amount} pelo plano ${data.label}.\n\nSegue o comprovante em anexo.\n\nMeu email de contato: `);
+  window.location.href = `mailto:${EMAIL_CONTACT}?subject=${subject}&body=${body}`;
+}
+
+/* =========================================================
+   RENDER DE ADDONS
    ========================================================= */
 const catNames = {
   utility:'Utilitários', interface:'Interface',
@@ -536,36 +1068,66 @@ const catIcons = {
 
 function createCard(a){
   const card = document.createElement('article');
-  card.className = 'addon-card';
+  const isPremium = a.type === 'premium';
+  const isLocked = isPremium && !isPremiumActive();
+  card.className = 'addon-card' + (isPremium ? ' premium' : '') + (isLocked ? ' locked' : '');
+
   const date = new Date(a.date).toLocaleDateString('pt-BR');
-  const icon = a.icon && a.icon.trim() ? a.icon : ('fas ' + catIcons[a.category]);
+  const isImg = a.icon && (a.icon.startsWith('http') || a.icon.startsWith('data:image'));
+  const iconHtml = isImg
+    ? `<img src="${escapeAttr(a.icon)}" alt="">`
+    : `<i class="${a.icon || 'fas ' + catIcons[a.category]}"></i>`;
+
+  const typeTag = isPremium
+    ? `<span class="tag tag-premium"><i class="fas fa-crown"></i> Premium</span>`
+    : `<span class="tag tag-free"><i class="fas fa-gift"></i> Grátis</span>`;
+
+  // Corpo do card
+  let bodyHtml = '';
+  if(isLocked){
+    bodyHtml = `
+      <button class="premium-cta" onclick="openPremiumModal()">
+        <i class="fas fa-crown"></i> Desbloquear Premium
+      </button>
+    `;
+  }else{
+    bodyHtml = `
+      <div class="download-row">
+        <a href="${escapeAttr(a.downloadUrlB)}" target="_blank" rel="noopener" class="dl-btn dl-btn-b"><i class="fas fa-download"></i> BAIXAR B</a>
+        <a href="${escapeAttr(a.downloadUrlR)}" target="_blank" rel="noopener" class="dl-btn dl-btn-r"><i class="fas fa-download"></i> BAIXAR R</a>
+      </div>
+    `;
+  }
+
   card.innerHTML = `
     <div class="addon-top">
-      <div class="addon-icon cat-${a.category}"><i class="${icon}"></i></div>
+      <div class="addon-icon cat-${a.category}">${iconHtml}</div>
       <div class="addon-tags">
+        ${typeTag}
         <span class="tag tag-cat">${catNames[a.category]||a.category}</span>
-        <span class="tag tag-ver">v${a.version}</span>
+        <span class="tag tag-ver">v${escapeHtml(a.version)}</span>
       </div>
     </div>
     <div class="addon-body">
       <h3 class="addon-title">${escapeHtml(a.name)}</h3>
       <p class="addon-desc">${escapeHtml(a.description)}</p>
       <div class="addon-meta-row">
-        <span class="author"><i class="fas fa-user"></i> ${escapeHtml(a.author)}</span>
+        <span class="author clickable" onclick="filterByAuthor('${escapeAttr(a.author)}')">
+          <i class="fas fa-user"></i> <span>${escapeHtml(a.author)}</span>
+        </span>
         <span class="date"><i class="fas fa-calendar"></i> ${date}</span>
       </div>
-      <div class="download-row">
-        <a href="${escapeAttr(a.downloadUrlB)}" target="_blank" rel="noopener" class="dl-btn dl-btn-b"><i class="fas fa-download"></i> BAIXAR B</a>
-        <a href="${escapeAttr(a.downloadUrlR)}" target="_blank" rel="noopener" class="dl-btn dl-btn-r"><i class="fas fa-download"></i> BAIXAR R</a>
-      </div>
+      ${bodyHtml}
     </div>
   `;
   return card;
 }
 
 function renderAddons(){
-  const filtered = addonsData.filter(a => {
+  let filtered = addonsData.filter(a => {
     if(currentFilter !== 'all' && a.category !== currentFilter) return false;
+    if(currentTypeFilter !== 'all' && a.type !== currentTypeFilter) return false;
+    if(currentAuthorFilter && a.author !== currentAuthorFilter) return false;
     if(currentSearch){
       const q = currentSearch.toLowerCase();
       return a.name.toLowerCase().includes(q)
@@ -578,7 +1140,7 @@ function renderAddons(){
   filtered.sort((a,b) => {
     if(currentSort === 'newest') return new Date(b.date) - new Date(a.date);
     if(currentSort === 'name') return a.name.localeCompare(b.name);
-    if(currentSort === 'category') return a.category.localeCompare(b.category);
+    if(currentSort === 'author') return a.author.localeCompare(b.author);
     return 0;
   });
 
@@ -589,7 +1151,7 @@ function renderAddons(){
       <div class="empty-state">
         <i class="fas fa-box-open"></i>
         <h3>Nenhum addon encontrado</h3>
-        <p>${addonsData.length ? 'Tente alterar os filtros de busca.' : 'Em breve novos addons serão publicados aqui.'}</p>
+        <p>${addonsData.length ? 'Tente alterar os filtros.' : 'Em breve novos addons serão publicados aqui.'}</p>
       </div>`;
     loadMoreBtn.style.display = 'none';
     updateStats();
@@ -603,19 +1165,50 @@ function renderAddons(){
 
 function updateStats(){
   totalAddonsEl.textContent = addonsData.length;
+  totalPremiumEl.textContent = addonsData.filter(a => a.type === 'premium').length;
+  totalAuthorsEl.textContent = new Set(addonsData.map(a => a.author)).size;
 }
 
 function applyFilters(){
   currentFilter = categoryFilter.value;
+  currentTypeFilter = typeFilter.value;
   currentSort = sortFilter.value;
   currentSearch = searchFilter.value.trim();
   displayedAddons = 9;
   renderAddons();
 }
 
+function filterByAuthor(author){
+  currentAuthorFilter = author;
+  $('authorFilterName').textContent = author;
+  $('authorFilterBar').style.display = 'block';
+  displayedAddons = 9;
+  renderAddons();
+  document.getElementById('addons').scrollIntoView({behavior:'smooth'});
+}
+
+function clearAuthorFilter(){
+  currentAuthorFilter = null;
+  $('authorFilterBar').style.display = 'none';
+  renderAddons();
+}
+
 /* =========================================================
-   FORM ADMIN
+   FORM ADMIN - ADICIONAR ADDON
    ========================================================= */
+function setAddonType(type){
+  selectedAddonType = type;
+  document.querySelectorAll('.type-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.type === type);
+  });
+}
+
+function resetAddonForm(){
+  $('addAddonForm').reset();
+  $('addonIcon').value = 'fas fa-puzzle-piece';
+  setAddonType('free');
+}
+
 $('addAddonForm').addEventListener('submit', e => {
   e.preventDefault();
   if(!hasValidSession()){ toast('Sessão expirada.', 'error'); closeAdminPanel(); return; }
@@ -636,36 +1229,190 @@ $('addAddonForm').addEventListener('submit', e => {
     downloadUrlB: urlB,
     downloadUrlR: urlR,
     icon: $('addonIcon').value.trim() || 'fas fa-puzzle-piece',
+    type: selectedAddonType,
     date: new Date().toISOString().split('T')[0]
   };
 
   addonsData.unshift(newAddon);
-  saveData();
+  saveAddons();
   renderAddons();
   toast(`"${newAddon.name}" adicionado com sucesso!`, 'success');
-  $('addAddonForm').reset();
-  $('addonIcon').value = 'fas fa-puzzle-piece';
+  resetAddonForm();
 });
 
-$('adminClose').addEventListener('click', closeAdminPanel);
-$('adminReset').addEventListener('click', () => {
-  $('addAddonForm').reset();
-  $('addonIcon').value = 'fas fa-puzzle-piece';
-});
-adminModal.addEventListener('click', e => { if(e.target === adminModal) closeAdminPanel(); });
+/* =========================================================
+   SISTEMA DE CHAVES
+   ========================================================= */
+function generateRandomKey(){
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let part = '';
+  for(let i=0;i<4;i++){
+    part = '';
+    for(let j=0;j<4;j++){
+      part += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    if(i < 3) part += '';
+  }
+  // Formato: REV-XXXX-XXXX-XXXX
+  const p1 = randomStr(4), p2 = randomStr(4), p3 = randomStr(4);
+  return `REV-${p1}-${p2}-${p3}`;
+}
+function randomStr(n){
+  const chars = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789';
+  let s = '';
+  for(let i=0;i<n;i++) s += chars.charAt(Math.floor(Math.random() * chars.length));
+  return s;
+}
+
+function generateKey(){
+  if(!hasValidSession()){ toast('Sessão expirada.', 'error'); return; }
+  const days = parseInt($('keyDuration').value);
+  const email = $('keyEmail').value.trim().toLowerCase();
+
+  const newKey = {
+    key: generateRandomKey(),
+    days: days,
+    email: email || null,
+    createdAt: Date.now(),
+    activatedAt: null
+  };
+
+  // Garante unicidade
+  let attempts = 0;
+  while(keysData.find(k => k.key === newKey.key) && attempts < 10){
+    newKey.key = generateRandomKey();
+    attempts++;
+  }
+
+  keysData.unshift(newKey);
+  saveKeys();
+
+  lastGeneratedKey = newKey.key;
+  $('keyValue').textContent = newKey.key;
+  $('keyDisplay').classList.add('show');
+  renderKeyList();
+  toast('✅ Chave gerada! Copie e envie no privado pro cliente.', 'success');
+}
+
+function copyGeneratedKey(){
+  if(!lastGeneratedKey) return;
+  navigator.clipboard.writeText(lastGeneratedKey).then(() => {
+    toast('✅ Chave copiada!', 'success');
+  }).catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = lastGeneratedKey;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    toast('✅ Chave copiada!', 'success');
+  });
+}
+
+function hideKeyDisplay(){
+  $('keyDisplay').classList.remove('show');
+  $('keyEmail').value = '';
+  lastGeneratedKey = null;
+}
+
+function renderKeyList(){
+  const container = $('keyListContainer');
+  if(!keysData.length){
+    container.innerHTML = `
+      <div style="text-align:center;padding:40px;color:var(--text-mute)">
+        <i class="fas fa-key" style="font-size:2.5rem;margin-bottom:14px;opacity:0.4"></i>
+        <p>Nenhuma chave gerada ainda</p>
+      </div>`;
+    return;
+  }
+
+  const rows = keysData.map(k => {
+    let status = 'Livre', cls = 'status-livre';
+    if(k.activatedAt){
+      const exp = k.activatedAt + k.days * 24 * 60 * 60 * 1000;
+      if(Date.now() > exp){ status = 'Expirada'; cls = 'status-expirada'; }
+      else { status = 'Ativa'; cls = 'status-ativa'; }
+    }
+    const email = k.email || '—';
+    const dataStr = new Date(k.createdAt).toLocaleDateString('pt-BR');
+    return `
+      <tr>
+        <td><code>${k.key}</code></td>
+        <td>${k.days} dias</td>
+        <td>${escapeHtml(email)}</td>
+        <td><span class="status-badge ${cls}">${status}</span></td>
+        <td>${dataStr}</td>
+      </tr>
+    `;
+  }).join('');
+
+  container.innerHTML = `
+    <div style="overflow-x:auto">
+      <table class="key-table">
+        <thead>
+          <tr>
+            <th>Chave</th>
+            <th>Duração</th>
+            <th>Email</th>
+            <th>Status</th>
+            <th>Criada em</th>
+          </tr>
+        </thead>
+        <tbody>${rows}</tbody>
+      </table>
+    </div>
+    <div style="margin-top:16px;text-align:right">
+      <button class="btn btn-ghost" style="font-size:0.82rem;padding:8px 14px" onclick="clearAllKeys()">
+        <i class="fas fa-trash"></i> Limpar chaves expiradas
+      </button>
+    </div>
+  `;
+}
+
+function clearAllKeys(){
+  if(!confirm('Remover todas as chaves expiradas?')) return;
+  keysData = keysData.filter(k => {
+    if(!k.activatedAt) return true;
+    const exp = k.activatedAt + k.days * 24 * 60 * 60 * 1000;
+    return Date.now() <= exp;
+  });
+  saveKeys();
+  renderKeyList();
+  toast('Chaves expiradas removidas.', 'success');
+}
+
+function switchAdminTab(btn){
+  document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.admin-pane').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  $(btn.dataset.pane).classList.add('active');
+  if(btn.dataset.pane === 'pane-list') renderKeyList();
+}
 
 /* =========================================================
    PERSISTÊNCIA
    ========================================================= */
-function saveData(){
-  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify(addonsData)); }catch{}
+function saveAddons(){
+  try{ localStorage.setItem(ADDONS_STORAGE_KEY, JSON.stringify(addonsData)); }catch{}
 }
-function loadData(){
+function loadAddons(){
   try{
-    const raw = localStorage.getItem(STORAGE_KEY);
+    const raw = localStorage.getItem(ADDONS_STORAGE_KEY);
     if(raw){
       const p = JSON.parse(raw);
       if(Array.isArray(p)) addonsData = p;
+    }
+  }catch{}
+}
+function saveKeys(){
+  try{ localStorage.setItem(KEYS_STORAGE_KEY, JSON.stringify(keysData)); }catch{}
+}
+function loadKeys(){
+  try{
+    const raw = localStorage.getItem(KEYS_STORAGE_KEY);
+    if(raw){
+      const p = JSON.parse(raw);
+      if(Array.isArray(p)) keysData = p;
     }
   }catch{}
 }
@@ -675,8 +1422,9 @@ function loadData(){
    ========================================================= */
 applyFiltersBtn.addEventListener('click', applyFilters);
 searchFilter.addEventListener('keyup', e => { if(e.key === 'Enter') applyFilters(); });
-$('categoryFilter').addEventListener('change', applyFilters);
-$('sortFilter').addEventListener('change', applyFilters);
+categoryFilter.addEventListener('change', applyFilters);
+typeFilter.addEventListener('change', applyFilters);
+sortFilter.addEventListener('change', applyFilters);
 loadMoreBtn.addEventListener('click', () => { displayedAddons += 6; renderAddons(); });
 
 mobileMenuBtn.addEventListener('click', () => {
@@ -709,6 +1457,18 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
   });
 });
 
+// Fechar modais clicando fora
+[premiumModal, premiumInfoModal, adminModal].forEach(m => {
+  m.addEventListener('click', e => { if(e.target === m) {
+    m.classList.remove('open');
+    document.body.style.overflow = '';
+  }});
+});
+
+// Ativar com Enter no campo de chave
+$('activateKey').addEventListener('keyup', e => { if(e.key === 'Enter') $('activateEmail').focus(); });
+$('activateEmail').addEventListener('keyup', e => { if(e.key === 'Enter') activateKey(); });
+
 /* =========================================================
    UTILS
    ========================================================= */
@@ -722,18 +1482,29 @@ function escapeAttr(s=''){ return escapeHtml(s); }
 function toast(msg, type='info'){
   const el = document.createElement('div');
   el.className = 'toast ' + type;
-  const icons = { success:'fa-circle-check', error:'fa-circle-exclamation', info:'fa-circle-info' };
+  const icons = { success:'fa-circle-check', error:'fa-circle-exclamation', info:'fa-circle-info', warn:'fa-triangle-exclamation' };
   el.innerHTML = `<i class="fas ${icons[type]||icons.info}"></i><span>${escapeHtml(msg)}</span>`;
   document.body.appendChild(el);
-  setTimeout(() => { el.style.animation = 'toastOut 0.3s forwards'; setTimeout(()=>el.remove(), 300); }, 3200);
+  setTimeout(() => { el.style.animation = 'toastOut 0.3s forwards'; setTimeout(()=>el.remove(), 300); }, 3400);
 }
 
 /* =========================================================
    INIT
    ========================================================= */
-loadData();
+loadAddons();
+loadKeys();
 renderAddons();
 updateStats();
+updatePremiumUI();
+
+// Verifica expiração do premium a cada minuto
+setInterval(() => {
+  const s = getPremiumSession();
+  if(!s) return;
+  updatePremiumUI();
+  renderAddons();
+}, 60000);
+
 </script>
 </body>
 </html>
