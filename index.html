@@ -167,8 +167,6 @@ body.has-banner .filters-wrap{top:114px}
 .rating-stars{display:inline-flex;gap:2px;color:var(--gold)}
 .rating-stars .empty{color:var(--text-mute);opacity:0.3}
 .rating-count{color:var(--text-mute);font-size:0.78rem}
-.downloads-count{display:inline-flex;align-items:center;gap:5px;color:var(--text-mute);font-size:0.78rem}
-.downloads-count i{color:var(--primary)}
 
 .addon-tags-custom{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
 .tag-custom{padding:4px 10px;border-radius:8px;font-size:0.7rem;font-weight:600;background:rgba(99,102,241,0.12);color:#a5b4fc;border:1px solid rgba(99,102,241,0.2)}
@@ -1028,7 +1026,7 @@ body.light-mode footer{background:linear-gradient(180deg,transparent,rgba(200,20
 
 <script type="module">
 /* =========================================================
-   REVOLUTION ADDON'S — FIREBASE v13 COMPLETO
+   REVOLUTION ADDON'S — FIREBASE v13 COMPLETO (sem contador)
    ========================================================= */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
@@ -1462,17 +1460,6 @@ function checkUpdates(){
   localStorage.setItem(seenKey, JSON.stringify(seen));
 }
 
-/* ================= DOWNLOADS ================= */
-function registerDownload(addonId, type){
-  const addon = addonsData.find(x => x.id === addonId);
-  if(!addon) return;
-  const counterKey = type === 'b' ? 'downloadsB' : 'downloadsR';
-  const current = addon[counterKey] || 0;
-  update(ref(db, 'addons/' + addonId), { [counterKey]: current + 1 });
-  addToHistory(addonId);
-}
-function getTotalDownloads(addon){ return (addon.downloadsB || 0) + (addon.downloadsR || 0); }
-
 /* ================= COMPARTILHAR ================= */
 function shareWhatsApp(addonId){
   const addon = addonsData.find(x => x.id === addonId);
@@ -1628,7 +1615,6 @@ function createCard(a){
   const creator = findCreator(a.author);
   const youtubeBtn = creator ? `<a href="${escapeAttr(creator.youtube)}" target="_blank" rel="noopener" class="youtube-btn" title="YouTube de ${escapeAttr(a.author)}"><i class="fab fa-youtube"></i> YouTube</a>` : '';
   const rating = getAddonRating(a.id);
-  const downloads = getTotalDownloads(a);
   const fav = isFavorite(a.id);
   const notif = isNotifying(a.id);
   const tagsHtml = (a.tags && a.tags.length) ? `<div class="addon-tags-custom">${a.tags.map(t => `<span class="tag-custom">${escapeHtml(t)}</span>`).join('')}</div>` : '';
@@ -1636,7 +1622,7 @@ function createCard(a){
   let premiumHtml = '';
   if(hasPremium){
     if(userHasPremium){
-      premiumHtml = `<div class="premium-area"><div class="premium-area-title"><i class="fas fa-crown"></i> Área Premium · Liberada</div><div class="premium-row"><a href="${escapeAttr(a.downloadUrlBPremium)}" target="_blank" rel="noopener" class="premium-dl-btn" onclick="registerDownload('${a.id}','b')"><i class="fas fa-bolt"></i> BAIXAR B (Premium)</a><a href="${escapeAttr(a.downloadUrlRPremium)}" target="_blank" rel="noopener" class="premium-dl-btn" onclick="registerDownload('${a.id}','r')"><i class="fas fa-bolt"></i> BAIXAR R (Premium)</a></div></div>`;
+      premiumHtml = `<div class="premium-area"><div class="premium-area-title"><i class="fas fa-crown"></i> Área Premium · Liberada</div><div class="premium-row"><a href="${escapeAttr(a.downloadUrlBPremium)}" target="_blank" rel="noopener" class="premium-dl-btn"><i class="fas fa-bolt"></i> BAIXAR B (Premium)</a><a href="${escapeAttr(a.downloadUrlRPremium)}" target="_blank" rel="noopener" class="premium-dl-btn"><i class="fas fa-bolt"></i> BAIXAR R (Premium)</a></div></div>`;
     }else{
       premiumHtml = `<div class="premium-area"><div class="premium-area-title"><i class="fas fa-lock"></i> Área Premium · Bloqueada</div><button class="premium-cta" onclick="openPremiumModal()"><i class="fas fa-crown"></i> Desbloquear Downloads Diretos</button></div>`;
     }
@@ -1657,7 +1643,6 @@ function createCard(a){
       <h3 class="addon-title">${escapeHtml(a.name)}</h3>
       <div class="rating-row">
         <span class="rating-stars" onclick="openReviewsList('${a.id}')" style="cursor:pointer">${renderStars(rating.avg)}<span style="color:var(--text-dim);margin-left:6px;font-weight:600">${rating.count ? rating.avg : 'Sem nota'}</span><span class="rating-count">(${rating.count})</span></span>
-        <span class="downloads-count"><i class="fas fa-download"></i> ${downloads}</span>
       </div>
       ${tagsHtml}
       <p class="addon-desc">${escapeHtml(a.description)}</p>
@@ -1666,8 +1651,8 @@ function createCard(a){
         <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">${youtubeBtn}<span class="date"><i class="fas fa-calendar"></i> ${date}</span></span>
       </div>
       <div class="download-row">
-        <a href="${escapeAttr(a.downloadUrlB)}" target="_blank" rel="noopener" class="dl-btn dl-btn-b" onclick="registerDownload('${a.id}','b')"><i class="fas fa-download"></i> BAIXAR B</a>
-        <a href="${escapeAttr(a.downloadUrlR)}" target="_blank" rel="noopener" class="dl-btn dl-btn-r" onclick="registerDownload('${a.id}','r')"><i class="fas fa-download"></i> BAIXAR R</a>
+        <a href="${escapeAttr(a.downloadUrlB)}" target="_blank" rel="noopener" class="dl-btn dl-btn-b"><i class="fas fa-download"></i> BAIXAR B</a>
+        <a href="${escapeAttr(a.downloadUrlR)}" target="_blank" rel="noopener" class="dl-btn dl-btn-r"><i class="fas fa-download"></i> BAIXAR R</a>
       </div>
       ${premiumHtml}
       <div class="card-actions">
@@ -1899,22 +1884,18 @@ function clearAllKeys(){
 function renderDashboard(){
   const container = $('dashboardContainer');
   if(!container) return;
-  const topDownloads = [...addonsData].map(a => ({ name: a.name, downloads: getTotalDownloads(a) })).sort((a,b) => b.downloads - a.downloads).slice(0, 5);
   const topRated = [...addonsData].map(a => ({ name: a.name, rating: getAddonRating(a.id) })).filter(x => x.rating.count > 0).sort((a,b) => parseFloat(b.rating.avg) - parseFloat(a.rating.avg)).slice(0, 5);
   const activeKeys = keysData.filter(k => { if(!k.activatedAt) return false; const exp = k.activatedAt + k.days * 86400000; return Date.now() <= exp; });
   const revenue = keysData.filter(k => k.activatedAt).reduce((acc, k) => { if(k.days === 30) return acc + 5; if(k.days === 90) return acc + 10; if(k.days === 365) return acc + 15; return acc; }, 0);
   const uniqueClients = new Set(keysData.filter(k => k.email).map(k => k.email)).size;
-  const totalDownloads = addonsData.reduce((acc, a) => acc + getTotalDownloads(a), 0);
 
   container.innerHTML = `
     <div class="stats-dashboard">
-      <div class="stat-box"><h4><i class="fas fa-download"></i> Downloads Totais</h4><div class="big-num">${totalDownloads}</div><div class="sub">Todos os addons</div></div>
       <div class="stat-box"><h4><i class="fas fa-crown"></i> Faturamento</h4><div class="big-num gold">R$ ${revenue},00</div><div class="sub">${keysData.filter(k => k.activatedAt).length} chaves ativadas</div></div>
       <div class="stat-box"><h4><i class="fas fa-users"></i> Clientes</h4><div class="big-num green">${uniqueClients}</div><div class="sub">${activeKeys.length} premium ativos</div></div>
       <div class="stat-box"><h4><i class="fas fa-puzzle-piece"></i> Addons</h4><div class="big-num">${addonsData.length}</div><div class="sub">${addonsData.filter(a => a.downloadUrlBPremium).length} com premium</div></div>
     </div>
     <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px">
-      <div class="stat-box"><h4><i class="fas fa-fire"></i> Top 5 Mais Baixados</h4><div class="top-list">${topDownloads.length ? topDownloads.map((t, i) => `<div class="top-item"><div class="top-rank ${i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : ''}">${i+1}</div><div class="top-name">${escapeHtml(t.name)}</div><div class="top-value">${t.downloads} ⬇️</div></div>`).join('') : '<p style="color:var(--text-mute);font-size:0.85rem">Nenhum download ainda</p>'}</div></div>
       <div class="stat-box"><h4><i class="fas fa-star"></i> Top 5 Melhor Avaliados</h4><div class="top-list">${topRated.length ? topRated.map((t, i) => `<div class="top-item"><div class="top-rank ${i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : ''}">${i+1}</div><div class="top-name">${escapeHtml(t.name)}</div><div class="top-value">${t.rating.avg} ⭐</div></div>`).join('') : '<p style="color:var(--text-mute);font-size:0.85rem">Nenhuma avaliação ainda</p>'}</div></div>
     </div>
   `;
@@ -2025,7 +2006,6 @@ window.openReviewsList = openReviewsList;
 window.closeReviewsList = closeReviewsList;
 window.applySuggestion = applySuggestion;
 window.renderDashboard = renderDashboard;
-window.registerDownload = registerDownload;
 
 /* ================= INIT ================= */
 initTheme();
