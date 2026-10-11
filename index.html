@@ -109,6 +109,18 @@ body.has-banner .filters-wrap{top:114px}
 .addon-card:hover::before{opacity:1}
 .addon-card.has-premium:hover{box-shadow:0 0 40px -10px rgba(251,191,36,0.5)}
 
+.addon-card.featured{
+  border:2px solid transparent;
+  background:linear-gradient(var(--surface),var(--surface)) padding-box,linear-gradient(135deg,#fbbf24,#f59e0b,#ec4899) border-box;
+}
+.addon-card.featured::after{
+  content:'⭐ DESTAQUE';position:absolute;top:12px;left:-32px;
+  background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1000;
+  font-size:0.62rem;font-weight:800;padding:5px 40px;
+  transform:rotate(-45deg);letter-spacing:0.08em;z-index:5;
+  box-shadow:0 4px 12px rgba(251,191,36,0.5);
+}
+
 .addon-top{padding:22px 22px 0;display:flex;justify-content:space-between;align-items:flex-start;position:relative}
 .addon-icon{width:64px;height:64px;border-radius:16px;display:grid;place-items:center;font-size:1.6rem;color:white;background:var(--grad-2);box-shadow:0 10px 24px -10px rgba(6,182,212,0.6);position:relative;overflow:hidden;flex-shrink:0}
 .addon-icon img{width:100%;height:100%;object-fit:contain;padding:4px}
@@ -162,7 +174,6 @@ body.has-banner .filters-wrap{top:114px}
 .premium-dl-btn{flex:1;display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 14px;border-radius:12px;font-weight:600;font-size:0.82rem;text-decoration:none;color:#1a1000;transition:all 0.25s;letter-spacing:0.03em;background:var(--grad-premium);box-shadow:0 6px 20px -8px rgba(251,191,36,0.6)}
 .premium-dl-btn:hover{transform:translateY(-2px);box-shadow:0 10px 26px -8px rgba(251,191,36,0.9)}
 
-/* ============ NOVOS: rating, tags, card-actions ============ */
 .rating-row{display:flex;align-items:center;gap:10px;flex-wrap:wrap;font-size:0.82rem;color:var(--text-dim);margin-bottom:10px}
 .rating-stars{display:inline-flex;gap:2px;color:var(--gold)}
 .rating-stars .empty{color:var(--text-mute);opacity:0.3}
@@ -179,7 +190,9 @@ body.has-banner .filters-wrap{top:114px}
 .card-action-btn.share:hover{background:rgba(37,211,102,0.15);color:#25D366;border-color:rgba(37,211,102,0.4)}
 .card-action-btn i{font-size:0.85rem}
 
-/* Autocomplete */
+.addon-launched{display:inline-flex;align-items:center;gap:5px;font-size:0.72rem;color:var(--text-mute)}
+.addon-launched.new-badge{color:var(--success);font-weight:700}
+
 .search-suggestions{position:absolute;top:100%;left:0;right:0;margin-top:6px;background:var(--surface);border:1px solid var(--border-hi);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);z-index:200;max-height:280px;overflow-y:auto;display:none}
 .search-suggestions.show{display:block}
 .suggestion-item{padding:10px 14px;cursor:pointer;font-size:0.88rem;display:flex;align-items:center;gap:10px;border-bottom:1px solid var(--border);transition:background 0.15s}
@@ -188,7 +201,6 @@ body.has-banner .filters-wrap{top:114px}
 .suggestion-item i{color:var(--primary);width:16px;text-align:center}
 .suggestion-item .sugg-meta{color:var(--text-mute);font-size:0.75rem;margin-left:auto}
 
-/* Tema */
 body.light-mode{--bg:#f5f7fa;--bg-2:#eef1f6;--surface:#ffffff;--surface-2:#f8fafc;--border:rgba(0,0,0,0.08);--border-hi:rgba(0,0,0,0.15);--text:#0a0e1a;--text-dim:#4a5568;--text-mute:#718096;--shadow:0 20px 60px -15px rgba(0,0,0,0.15)}
 body.light-mode::before{opacity:0.3}
 body.light-mode::after{opacity:0.1}
@@ -196,6 +208,21 @@ body.light-mode::after{opacity:0.1}
 .theme-toggle{position:fixed;bottom:24px;right:24px;z-index:1500;width:52px;height:52px;border-radius:50%;background:var(--grad-1);color:white;border:none;cursor:pointer;font-size:1.2rem;display:grid;place-items:center;box-shadow:0 10px 30px -10px rgba(139,92,246,0.7);transition:all 0.3s}
 .theme-toggle:hover{transform:scale(1.1) rotate(15deg)}
 body.light-mode .theme-toggle{background:var(--grad-premium);color:#1a1000}
+
+.color-toggle{position:fixed;bottom:24px;right:152px;z-index:1500;width:52px;height:52px;border-radius:50%;background:var(--surface);color:var(--text);border:1px solid var(--border-hi);cursor:pointer;font-size:1.2rem;display:grid;place-items:center;box-shadow:var(--shadow);transition:all 0.3s}
+.color-toggle:hover{transform:scale(1.1);border-color:var(--primary);color:var(--primary)}
+.color-picker-panel{position:fixed;bottom:24px;right:152px;z-index:1501;background:var(--surface);border:1px solid var(--border-hi);border-radius:16px;padding:14px;box-shadow:var(--shadow);display:none;grid-template-columns:repeat(3,1fr);gap:8px}
+.color-picker-panel.show{display:grid}
+.color-picker-panel::after{content:'Escolha uma cor';position:absolute;bottom:100%;left:50%;transform:translateX(-50%);margin-bottom:8px;white-space:nowrap;background:var(--surface);border:1px solid var(--border-hi);border-radius:8px;padding:6px 12px;font-size:0.72rem;color:var(--text-dim);font-weight:600;letter-spacing:0.05em}
+.color-swatch{width:38px;height:38px;border-radius:10px;border:2px solid transparent;cursor:pointer;transition:all 0.2s}
+.color-swatch:hover{transform:scale(1.15);border-color:white}
+.color-swatch.active{border-color:white;box-shadow:0 0 0 3px rgba(255,255,255,0.3)}
+.color-swatch.c-blue{background:linear-gradient(135deg,#6366f1,#8b5cf6)}
+.color-swatch.c-purple{background:linear-gradient(135deg,#a855f7,#ec4899)}
+.color-swatch.c-green{background:linear-gradient(135deg,#10b981,#22c55e)}
+.color-swatch.c-orange{background:linear-gradient(135deg,#f59e0b,#f97316)}
+.color-swatch.c-pink{background:linear-gradient(135deg,#ec4899,#f43f5e)}
+.color-swatch.c-cyan{background:linear-gradient(135deg,#06b6d4,#0ea5e9)}
 
 .client-toggle{position:fixed;bottom:24px;right:88px;z-index:1500;width:52px;height:52px;border-radius:50%;background:var(--surface);color:var(--text);border:1px solid var(--border-hi);cursor:pointer;font-size:1.2rem;display:grid;place-items:center;box-shadow:var(--shadow);transition:all 0.3s}
 .client-toggle:hover{transform:scale(1.1);border-color:var(--primary);color:var(--primary)}
@@ -229,7 +256,47 @@ body.light-mode .theme-toggle{background:var(--grad-premium);color:#1a1000}
 .review-date{color:var(--text-mute);font-size:0.75rem}
 .review-text{color:var(--text-dim);font-size:0.85rem;line-height:1.5}
 
-/* Dashboard */
+.trending-section{padding:40px 0 20px;margin-bottom:20px}
+.trending-tabs{display:flex;gap:8px;justify-content:center;margin-bottom:24px;flex-wrap:wrap}
+.trending-tab{padding:10px 20px;border-radius:12px;background:var(--surface);border:1px solid var(--border);color:var(--text-dim);cursor:pointer;font-family:inherit;font-size:0.88rem;font-weight:600;transition:all 0.25s;display:flex;align-items:center;gap:8px}
+.trending-tab:hover{background:var(--surface-2);color:var(--text);border-color:var(--primary)}
+.trending-tab.active{background:var(--grad-1);color:white;border-color:transparent;box-shadow:0 8px 20px -8px rgba(99,102,241,0.6)}
+.trending-tab.hot.active{background:linear-gradient(135deg,#ef4444,#f97316)}
+.trending-tab.new.active{background:linear-gradient(135deg,#06b6d4,#3b82f6)}
+.trending-tab.rec.active{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#1a1000}
+.trending-carousel{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+.trending-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px;transition:all 0.25s;position:relative;overflow:hidden;display:flex;gap:12px;align-items:center;cursor:pointer}
+.trending-card:hover{transform:translateY(-4px);border-color:var(--primary);box-shadow:0 12px 30px -10px rgba(99,102,241,0.3)}
+.trending-rank{width:38px;height:38px;border-radius:11px;flex-shrink:0;display:grid;place-items:center;font-weight:800;font-size:1rem;background:var(--grad-1);color:white;font-family:'Space Grotesk',sans-serif}
+.trending-rank.gold{background:linear-gradient(135deg,#fbbf24,#f59e0b)}
+.trending-rank.silver{background:linear-gradient(135deg,#cbd5e1,#94a3b8)}
+.trending-rank.bronze{background:linear-gradient(135deg,#b45309,#92400e)}
+.trending-info{flex:1;min-width:0}
+.trending-info h4{font-size:0.95rem;color:var(--text);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.trending-info p{font-size:0.75rem;color:var(--text-mute);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.trending-info .stars{color:var(--gold)}
+
+.newsletter-box{background:linear-gradient(135deg,rgba(99,102,241,0.08),rgba(236,72,153,0.08));border:1px solid var(--border);border-radius:16px;padding:24px;margin-bottom:30px}
+.newsletter-box h4{font-size:1.1rem;margin-bottom:8px;display:flex;align-items:center;gap:10px}
+.newsletter-box h4 i{color:var(--primary)}
+.newsletter-box p{color:var(--text-dim);font-size:0.88rem;margin-bottom:14px}
+.newsletter-form{display:flex;gap:10px;flex-wrap:wrap}
+.newsletter-form input{flex:1;min-width:220px;background:var(--bg-2);border:1px solid var(--border);color:var(--text);padding:12px 14px;border-radius:11px;font-family:inherit;font-size:0.92rem;transition:all 0.2s}
+.newsletter-form input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,0.15)}
+.newsletter-form button{padding:12px 20px;border-radius:11px;background:var(--grad-1);color:white;border:none;font-family:inherit;font-size:0.92rem;font-weight:600;cursor:pointer;transition:all 0.25s;display:flex;align-items:center;gap:8px}
+.newsletter-form button:hover{transform:translateY(-2px);box-shadow:0 10px 30px -10px rgba(139,92,246,0.6)}
+.newsletter-success{color:var(--success);font-size:0.88rem;display:flex;align-items:center;gap:8px;margin-top:10px}
+.newsletter-list{display:flex;flex-direction:column;gap:8px;max-height:400px;overflow-y:auto}
+.newsletter-item{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--bg-2);border:1px solid var(--border);border-radius:11px;transition:all 0.2s}
+.newsletter-item:hover{border-color:var(--primary)}
+.newsletter-item i{color:var(--primary);flex-shrink:0}
+.newsletter-item span{flex:1;color:var(--text);font-size:0.88rem}
+
+.chart-container{background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:20px;margin-top:20px}
+.chart-container h4{font-size:0.9rem;color:var(--text);margin-bottom:16px;display:flex;align-items:center;gap:10px}
+.chart-container h4 i{color:var(--primary)}
+.chart-container canvas{max-height:280px}
+
 .stats-dashboard{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-bottom:20px}
 .stat-box{background:var(--bg-2);border:1px solid var(--border);border-radius:14px;padding:18px;transition:all 0.2s}
 .stat-box:hover{border-color:var(--border-hi);transform:translateY(-2px)}
@@ -463,6 +530,12 @@ body.light-mode footer{background:linear-gradient(180deg,transparent,rgba(200,20
   .client-panel{width:100%}
   .client-toggle{right:88px;bottom:20px;width:46px;height:46px}
   .theme-toggle{bottom:20px;right:20px;width:46px;height:46px}
+  .color-toggle{bottom:80px;right:20px;width:46px;height:46px}
+  .color-picker-panel{bottom:80px;right:20px;left:20px;grid-template-columns:repeat(6,1fr)}
+  .color-picker-panel::after{left:20px;transform:none}
+  .trending-carousel{grid-template-columns:1fr}
+  .trending-tabs{overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;padding:0 12px}
+  .trending-tab{white-space:nowrap}
 }
 @media(max-width:480px){
   .hero-actions{flex-direction:column;width:100%}
@@ -481,6 +554,19 @@ body.light-mode footer{background:linear-gradient(180deg,transparent,rgba(200,20
 <button class="theme-toggle" id="themeToggle" onclick="toggleTheme()" title="Alternar tema">
   <i class="fas fa-moon" id="themeIcon"></i>
 </button>
+
+<button class="color-toggle" id="colorToggle" onclick="toggleColorPicker()" title="Mudar cor do site">
+  <i class="fas fa-palette"></i>
+</button>
+
+<div class="color-picker-panel" id="colorPickerPanel">
+  <div class="color-swatch c-blue active" data-color="blue" onclick="setCustomColor('blue')"></div>
+  <div class="color-swatch c-purple" data-color="purple" onclick="setCustomColor('purple')"></div>
+  <div class="color-swatch c-green" data-color="green" onclick="setCustomColor('green')"></div>
+  <div class="color-swatch c-orange" data-color="orange" onclick="setCustomColor('orange')"></div>
+  <div class="color-swatch c-pink" data-color="pink" onclick="setCustomColor('pink')"></div>
+  <div class="color-swatch c-cyan" data-color="cyan" onclick="setCustomColor('cyan')"></div>
+</div>
 
 <button class="client-toggle" onclick="openClientPanel()" title="Meus addons">
   <i class="fas fa-user"></i>
@@ -554,6 +640,28 @@ body.light-mode footer{background:linear-gradient(180deg,transparent,rgba(200,20
       <a href="#addons" class="btn btn-primary"><i class="fas fa-compass"></i> Explorar Addons</a>
       <a href="#" class="btn btn-premium" onclick="openPremiumModal();return false;"><i class="fas fa-crown"></i> Ver Planos Premium</a>
     </div>
+  </div>
+</section>
+
+<section class="trending-section">
+  <div class="container">
+    <div class="section-head" style="margin-bottom:24px">
+      <span class="eyebrow">Destaques</span>
+      <h2>Descubra Addons</h2>
+      <p>Os mais populares, recentes e bem avaliados da comunidade</p>
+    </div>
+    <div class="trending-tabs">
+      <button class="trending-tab hot active" data-trend="hot" onclick="switchTrending('hot')">
+        <i class="fas fa-fire"></i> Em Alta
+      </button>
+      <button class="trending-tab new" data-trend="new" onclick="switchTrending('new')">
+        <i class="fas fa-sparkles"></i> Novidades
+      </button>
+      <button class="trending-tab rec" data-trend="rec" onclick="switchTrending('rec')">
+        <i class="fas fa-star"></i> Recomendados
+      </button>
+    </div>
+    <div class="trending-carousel" id="trendingCarousel"></div>
   </div>
 </section>
 
@@ -641,6 +749,19 @@ body.light-mode footer{background:linear-gradient(180deg,transparent,rgba(200,20
 
 <footer id="contact">
   <div class="container">
+    <div class="newsletter-box">
+      <h4><i class="fas fa-envelope-open-text"></i> Receba novidades</h4>
+      <p>Cadastre seu email e seja avisado quando novos addons forem publicados</p>
+      <div class="newsletter-form" id="newsletterForm">
+        <input type="email" id="newsletterEmail" placeholder="seu@email.com">
+        <button onclick="subscribeNewsletter()">
+          <i class="fas fa-paper-plane"></i> Inscrever
+        </button>
+      </div>
+      <div class="newsletter-success" id="newsletterSuccess" style="display:none">
+        <i class="fas fa-check-circle"></i> Você está inscrito! Avisaremos quando houver novidades.
+      </div>
+    </div>
     <div class="footer-grid">
       <div class="footer-brand">
         <h3>Revolution Addon's</h3>
@@ -832,6 +953,9 @@ body.light-mode footer{background:linear-gradient(180deg,transparent,rgba(200,20
       <button class="admin-tab" data-pane="pane-list" onclick="switchAdminTab(this)">
         <i class="fas fa-table"></i> Lista de Chaves
       </button>
+      <button class="admin-tab" data-pane="pane-newsletter" onclick="switchAdminTab(this)">
+        <i class="fas fa-envelope"></i> Newsletter
+      </button>
       <button class="admin-tab" data-pane="pane-dashboard" onclick="switchAdminTab(this)">
         <i class="fas fa-chart-line"></i> Dashboard
       </button>
@@ -909,6 +1033,13 @@ body.light-mode footer{background:linear-gradient(180deg,transparent,rgba(200,20
               Cole o link direto de uma imagem hospedada
             </small>
           </div>
+        </div>
+
+        <div class="form-field full" style="flex-direction:row;align-items:center;gap:10px">
+          <input type="checkbox" id="addonFeatured" style="width:auto;flex-shrink:0;accent-color:var(--gold)">
+          <label style="margin:0;cursor:pointer" for="addonFeatured">
+            ⭐ Marcar como <strong>DESTAQUE</strong> (fica fixo no topo da lista)
+          </label>
         </div>
 
         <div class="admin-section-title">
@@ -1018,15 +1149,37 @@ body.light-mode footer{background:linear-gradient(180deg,transparent,rgba(200,20
       <div id="keyListContainer"></div>
     </div>
 
+    <div class="admin-pane" id="pane-newsletter">
+      <div class="admin-note" style="margin-bottom:20px">
+        <i class="fas fa-info-circle"></i>
+        <span>Lista de emails cadastrados na newsletter. Copie todos e envie novidades por email.</span>
+      </div>
+      <div class="newsletter-list" id="newsletterList"></div>
+      <div style="margin-top:16px;display:flex;gap:10px;flex-wrap:wrap">
+        <button class="btn btn-primary" onclick="copyAllNewsletterEmails()">
+          <i class="fas fa-copy"></i> Copiar todos os emails
+        </button>
+        <button class="btn btn-ghost" onclick="downloadNewsletterCSV()">
+          <i class="fas fa-download"></i> Baixar CSV
+        </button>
+      </div>
+    </div>
+
     <div class="admin-pane" id="pane-dashboard">
       <div id="dashboardContainer"></div>
+      <div class="chart-container" id="growthChartContainer">
+        <h4><i class="fas fa-chart-line"></i> Crescimento (Últimos 6 meses)</h4>
+        <canvas id="growthChart"></canvas>
+      </div>
     </div>
   </div>
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+
 <script type="module">
 /* =========================================================
-   REVOLUTION ADDON'S — FIREBASE v13 COMPLETO (sem contador)
+   REVOLUTION ADDON'S — FIREBASE v13 COMPLETO + EXTRAS
    ========================================================= */
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/13.0.0/firebase-app.js";
@@ -1062,13 +1215,23 @@ const PLAN_DATA = {
 };
 
 const PWD_OBF = atob('TWV0b2Rpc3Rh');
-const ADMIN_SESSION_KEY   = 'rv_session_v7';
-const PREMIUM_SESSION_KEY = 'revolutionPremiumV7';
+const ADMIN_SESSION_KEY   = 'rv_session_v8';
+const PREMIUM_SESSION_KEY = 'revolutionPremiumV8';
 const SESSION_HOURS = 6;
+
+const COLOR_THEMES = {
+  blue:   { grad1:'linear-gradient(135deg,#6366f1 0%,#8b5cf6 50%,#ec4899 100%)', primary:'#6366f1' },
+  purple: { grad1:'linear-gradient(135deg,#a855f7 0%,#c026d3 50%,#ec4899 100%)', primary:'#a855f7' },
+  green:  { grad1:'linear-gradient(135deg,#10b981 0%,#22c55e 50%,#84cc16 100%)', primary:'#10b981' },
+  orange: { grad1:'linear-gradient(135deg,#f59e0b 0%,#f97316 50%,#ef4444 100%)', primary:'#f59e0b' },
+  pink:   { grad1:'linear-gradient(135deg,#ec4899 0%,#f43f5e 50%,#f97316 100%)', primary:'#ec4899' },
+  cyan:   { grad1:'linear-gradient(135deg,#06b6d4 0%,#0ea5e9 50%,#3b82f6 100%)', primary:'#06b6d4' }
+};
 
 let addonsData = [];
 let keysData = [];
 let creatorsData = [];
+let newsletterData = [];
 let currentFilter = 'all';
 let currentSearch = '';
 let currentAuthorFilter = null;
@@ -1081,9 +1244,12 @@ let editingCreatorName = null;
 let addonsLoaded = false;
 let keysLoaded = false;
 let creatorsLoaded = false;
+let newsletterLoaded = false;
 let currentReviewAddon = null;
 let currentRateStars = 0;
 let currentClientTab = 'fav';
+let currentTrendingTab = 'hot';
+let chartInstance = null;
 
 const $ = id => document.getElementById(id);
 const addonsGrid = $('addonsGrid');
@@ -1108,6 +1274,7 @@ function initFirebaseSync(){
     addonsLoaded = true;
     renderAddons();
     renderAddonsAdminList();
+    renderTrending();
     updateStats();
     checkLoadingDone();
   }, (error) => { console.error('Erro addons:', error); addonsLoaded = true; checkLoadingDone(); });
@@ -1128,10 +1295,18 @@ function initFirebaseSync(){
     renderAddons();
     checkLoadingDone();
   }, (error) => { console.error('Erro criadores:', error); creatorsLoaded = true; checkLoadingDone(); });
+
+  onValue(ref(db, 'newsletter'), (snapshot) => {
+    const val = snapshot.val();
+    newsletterData = val ? Object.values(val).sort((a,b) => b.date - a.date) : [];
+    newsletterLoaded = true;
+    renderNewsletterList(newsletterData);
+    checkLoadingDone();
+  }, (error) => { console.error('Erro newsletter:', error); newsletterLoaded = true; checkLoadingDone(); });
 }
 
 function checkLoadingDone(){
-  if(addonsLoaded && keysLoaded && creatorsLoaded){
+  if(addonsLoaded && keysLoaded && creatorsLoaded && newsletterLoaded){
     const overlay = $('loadingOverlay');
     if(overlay){ overlay.classList.add('hide'); setTimeout(() => overlay.remove(), 500); }
     setTimeout(checkUpdates, 1000);
@@ -1167,7 +1342,7 @@ function logoutAdmin(e){
   toast('Você saiu do painel admin.', 'info');
 }
 function updateAdminUI(){ $('adminStatus').classList.toggle('show', hasValidSession()); }
-function openAdminPanel(){ adminModal.classList.add('open'); document.body.style.overflow = 'hidden'; renderKeyList(); renderAddonsAdminList(); renderCreatorsList(); }
+function openAdminPanel(){ adminModal.classList.add('open'); document.body.style.overflow = 'hidden'; renderKeyList(); renderAddonsAdminList(); renderCreatorsList(); renderNewsletterList(newsletterData); }
 function closeAdminPanel(){ adminModal.classList.remove('open'); document.body.style.overflow = ''; }
 
 let logoClicks = 0, logoTimer = null;
@@ -1181,6 +1356,209 @@ document.addEventListener('keydown', e => {
   if((e.ctrlKey || e.metaKey) && e.shiftKey && e.key.toLowerCase() === 'a'){ e.preventDefault(); requestAccess(); }
 });
 if(location.hash === '#painel'){ setTimeout(requestAccess, 400); }
+
+/* ================= COR PERSONALIZADA ================= */
+function initCustomColor(){
+  const saved = localStorage.getItem('rv_color') || 'blue';
+  applyCustomColor(saved);
+  document.querySelectorAll('.color-swatch').forEach(s => {
+    s.classList.toggle('active', s.dataset.color === saved);
+  });
+}
+function applyCustomColor(color){
+  const theme = COLOR_THEMES[color];
+  if(!theme) return;
+  document.documentElement.style.setProperty('--grad-1', theme.grad1);
+  document.documentElement.style.setProperty('--primary', theme.primary);
+}
+function setCustomColor(color){
+  localStorage.setItem('rv_color', color);
+  applyCustomColor(color);
+  document.querySelectorAll('.color-swatch').forEach(s => {
+    s.classList.toggle('active', s.dataset.color === color);
+  });
+  toast('Cor do site alterada! 🎨', 'success');
+}
+function toggleColorPicker(){
+  document.getElementById('colorPickerPanel').classList.toggle('show');
+}
+document.addEventListener('click', (e) => {
+  const panel = document.getElementById('colorPickerPanel');
+  const toggle = document.getElementById('colorToggle');
+  if(panel && toggle && !panel.contains(e.target) && !toggle.contains(e.target)){
+    panel.classList.remove('show');
+  }
+});
+
+/* ================= TEMA CLARO/ESCURO ================= */
+function initTheme(){
+  const saved = localStorage.getItem('rv_theme') || 'dark';
+  if(saved === 'light') document.body.classList.add('light-mode');
+  updateThemeIcon();
+}
+function toggleTheme(){
+  document.body.classList.toggle('light-mode');
+  const theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
+  localStorage.setItem('rv_theme', theme);
+  updateThemeIcon();
+}
+function updateThemeIcon(){
+  const icon = $('themeIcon');
+  if(!icon) return;
+  icon.className = document.body.classList.contains('light-mode') ? 'fas fa-sun' : 'fas fa-moon';
+}
+
+/* ================= EM ALTA / NOVIDADES / RECOMENDADOS ================= */
+function switchTrending(tab){
+  currentTrendingTab = tab;
+  document.querySelectorAll('.trending-tab').forEach(t => {
+    t.classList.toggle('active', t.dataset.trend === tab);
+  });
+  renderTrending();
+}
+
+function renderTrending(){
+  const container = document.getElementById('trendingCarousel');
+  if(!container) return;
+
+  let list = [];
+
+  if(currentTrendingTab === 'hot'){
+    list = [...addonsData]
+      .map(a => ({ ...a, rating: getAddonRating(a.id) }))
+      .filter(a => a.rating.count > 0)
+      .sort((a,b) => b.rating.count - a.rating.count)
+      .slice(0, 5);
+  }else if(currentTrendingTab === 'new'){
+    const thirtyDaysAgo = Date.now() - 30*24*60*60*1000;
+    list = [...addonsData]
+      .filter(a => new Date(a.date).getTime() > thirtyDaysAgo)
+      .sort((a,b) => new Date(b.date) - new Date(a.date))
+      .slice(0, 5);
+    if(!list.length){
+      list = [...addonsData].sort((a,b) => new Date(b.date) - new Date(a.date)).slice(0, 5);
+    }
+  }else if(currentTrendingTab === 'rec'){
+    list = [...addonsData]
+      .map(a => ({ ...a, rating: getAddonRating(a.id) }))
+      .filter(a => a.rating.count > 0)
+      .sort((a,b) => parseFloat(b.rating.avg) - parseFloat(a.rating.avg))
+      .slice(0, 5);
+  }
+
+  if(!list.length){
+    container.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-mute)">
+      <i class="fas fa-chart-line" style="font-size:2rem;opacity:0.4;margin-bottom:12px;display:block"></i>
+      <p>Nenhum addon nessa categoria ainda</p>
+    </div>`;
+    return;
+  }
+
+  container.innerHTML = list.map((a, i) => {
+    const rating = a.rating || getAddonRating(a.id);
+    const rankClass = i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : '';
+    return `
+      <div class="trending-card" onclick="scrollToAddon('${a.id}')">
+        <div class="trending-rank ${rankClass}">${i+1}</div>
+        <div class="trending-info">
+          <h4>${escapeHtml(a.name)}</h4>
+          <p>
+            <span class="stars">${'⭐'.repeat(Math.round(rating.avg) || 0)}</span>
+            <span>${rating.count ? rating.avg + ' (' + rating.count + ')' : 'Sem nota'}</span>
+            <span>·</span>
+            <span>${escapeHtml(a.author)}</span>
+          </p>
+        </div>
+      </div>
+    `;
+  }).join('');
+}
+
+function scrollToAddon(id){
+  const card = document.querySelector(`[data-addon-id="${id}"]`);
+  if(card){
+    card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    return;
+  }
+  currentSearch = '';
+  searchFilter.value = '';
+  currentFilter = 'all';
+  categoryFilter.value = 'all';
+  renderAddons();
+  setTimeout(() => {
+    const c = document.querySelector(`[data-addon-id="${id}"]`);
+    if(c) c.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 200);
+}
+
+/* ================= LANÇADO HÁ X ================= */
+function getLaunchedText(dateStr){
+  const date = new Date(dateStr);
+  const diffMs = Date.now() - date.getTime();
+  const diffDays = Math.floor(diffMs / (1000*60*60*24));
+  if(diffDays <= 0) return { text: 'Lançado hoje', isNew: true };
+  if(diffDays === 1) return { text: 'Lançado ontem', isNew: true };
+  if(diffDays < 7) return { text: `Lançado há ${diffDays} dias`, isNew: true };
+  if(diffDays < 30) return { text: `Lançado há ${Math.floor(diffDays/7)} sem`, isNew: false };
+  if(diffDays < 365) return { text: `Lançado há ${Math.floor(diffDays/30)} meses`, isNew: false };
+  return { text: `Lançado há ${Math.floor(diffDays/365)} ano(s)`, isNew: false };
+}
+
+/* ================= NEWSLETTER ================= */
+function subscribeNewsletter(){
+  const email = document.getElementById('newsletterEmail').value.trim().toLowerCase();
+  if(!email || !email.includes('@')){ toast('Digite um email válido.', 'error'); return; }
+  const key = email.replace(/[.#$\[\]]/g, '_');
+  set(ref(db, 'newsletter/' + key), { email: email, date: Date.now() });
+  document.getElementById('newsletterEmail').value = '';
+  document.getElementById('newsletterForm').style.display = 'none';
+  document.getElementById('newsletterSuccess').style.display = 'flex';
+  toast('✅ Inscrição confirmada!', 'success');
+}
+
+function renderNewsletterList(emails){
+  const container = document.getElementById('newsletterList');
+  if(!container) return;
+  if(!emails.length){
+    container.innerHTML = `<div style="text-align:center;padding:40px;color:var(--text-mute)">
+      <i class="fas fa-envelope" style="font-size:2.5rem;margin-bottom:14px;opacity:0.4"></i>
+      <p>Nenhum inscrito ainda</p>
+    </div>`;
+    return;
+  }
+  container.innerHTML = emails.map(e => `
+    <div class="newsletter-item">
+      <i class="fas fa-envelope"></i>
+      <span>${escapeHtml(e.email)}</span>
+      <small style="color:var(--text-mute);font-size:0.72rem">${new Date(e.date).toLocaleDateString('pt-BR')}</small>
+    </div>
+  `).join('');
+}
+
+function copyAllNewsletterEmails(){
+  const emails = newsletterData.map(e => e.email);
+  if(!emails.length){ toast('Nenhum email cadastrado.', 'error'); return; }
+  const text = emails.join(', ');
+  navigator.clipboard.writeText(text).then(() => toast(`✅ ${emails.length} emails copiados!`, 'success'))
+  .catch(() => {
+    const ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); ta.remove();
+    toast(`✅ ${emails.length} emails copiados!`, 'success');
+  });
+}
+
+function downloadNewsletterCSV(){
+  const emails = newsletterData;
+  if(!emails.length){ toast('Nenhum email cadastrado.', 'error'); return; }
+  const csv = 'email,data\n' + emails.map(e => `"${e.email}","${new Date(e.date).toLocaleDateString('pt-BR')}"`).join('\n');
+  const blob = new Blob([csv], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url; a.download = 'newsletter_inscritos.csv'; a.click();
+  URL.revokeObjectURL(url);
+  toast('✅ CSV baixado!', 'success');
+}
 
 /* ================= PREMIUM ================= */
 function getPremiumSession(){
@@ -1350,7 +1728,7 @@ function renderCreatorsList(){
   `).join('')}</div>`;
 }
 
-/* ================= CLIENTE (FAVORITOS/HISTÓRICO) ================= */
+/* ================= CLIENTE ================= */
 function getClientEmail(){ return localStorage.getItem('rv_client_email') || ''; }
 function saveClientEmail(){
   const email = $('clientEmail').value.trim().toLowerCase();
@@ -1517,7 +1895,7 @@ function openReviewsList(addonId){
   const reviews = getReviews()[addonId] || [];
   const rating = getAddonRating(addonId);
   $('reviewsListAddonName').textContent = addon.name;
-  $('reviewsListAverage').innerHTML = `<div style="font-size:2.5rem;color:var(--gold);font-weight:800">${rating.avg}</div><div style="font-size:1rem;color:var(--gold)">${'⭐'.repeat(Math.round(rating.avg))}</div><div style="color:var(--text-mute);font-size:0.82rem;margin-top:6px">${rating.count} avaliações</div>`;
+  $('reviewsListAverage').innerHTML = `<div style="font-size:2.5rem;color:var(--gold);font-weight:800">${rating.avg}</div><div style="font-size:1rem;color:var(--gold)">${'⭐'.repeat(Math.round(rating.avg) || 0)}</div><div style="color:var(--text-mute);font-size:0.82rem;margin-top:6px">${rating.count} avaliações</div>`;
   const container = $('reviewsListContainer');
   if(!reviews.length){ container.innerHTML = '<p style="text-align:center;color:var(--text-mute);padding:20px">Nenhuma avaliação ainda</p>'; }
   else{
@@ -1526,24 +1904,6 @@ function openReviewsList(addonId){
   $('reviewsListModal').classList.add('open'); document.body.style.overflow = 'hidden';
 }
 function closeReviewsList(){ $('reviewsListModal').classList.remove('open'); document.body.style.overflow = ''; }
-
-/* ================= TEMA ================= */
-function initTheme(){
-  const saved = localStorage.getItem('rv_theme') || 'dark';
-  if(saved === 'light') document.body.classList.add('light-mode');
-  updateThemeIcon();
-}
-function toggleTheme(){
-  document.body.classList.toggle('light-mode');
-  const theme = document.body.classList.contains('light-mode') ? 'light' : 'dark';
-  localStorage.setItem('rv_theme', theme);
-  updateThemeIcon();
-}
-function updateThemeIcon(){
-  const icon = $('themeIcon');
-  if(!icon) return;
-  icon.className = document.body.classList.contains('light-mode') ? 'fas fa-sun' : 'fas fa-moon';
-}
 
 /* ================= AUTOCOMPLETE ================= */
 let searchDebounceTimer = null;
@@ -1609,7 +1969,10 @@ function createCard(a){
   const hasPremium = !!(a.downloadUrlBPremium && a.downloadUrlBPremium.trim() && a.downloadUrlRPremium && a.downloadUrlRPremium.trim());
   const userHasPremium = isPremiumActive();
   const logged = hasValidSession();
-  card.className = 'addon-card' + (hasPremium ? ' has-premium' : '');
+  card.className = 'addon-card' + (hasPremium ? ' has-premium' : '') + (a.featured ? ' featured' : '');
+  card.setAttribute('data-addon-id', a.id);
+
+  const launched = getLaunchedText(a.date);
   const date = new Date(a.date).toLocaleDateString('pt-BR');
   const iconHtml = renderIconHtml(a.icon, a.category);
   const creator = findCreator(a.author);
@@ -1648,7 +2011,10 @@ function createCard(a){
       <p class="addon-desc">${escapeHtml(a.description)}</p>
       <div class="addon-meta-row">
         <span class="author clickable" onclick="filterByAuthor('${escapeAttr(a.author)}')"><i class="fas fa-user"></i> <span>${escapeHtml(a.author)}</span></span>
-        <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">${youtubeBtn}<span class="date"><i class="fas fa-calendar"></i> ${date}</span></span>
+        <span style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+          ${youtubeBtn}
+          <span class="date"><i class="fas fa-calendar"></i> ${date} <span class="addon-launched ${launched.isNew ? 'new-badge' : ''}">· ${launched.text}</span></span>
+        </span>
       </div>
       <div class="download-row">
         <a href="${escapeAttr(a.downloadUrlB)}" target="_blank" rel="noopener" class="dl-btn dl-btn-b"><i class="fas fa-download"></i> BAIXAR B</a>
@@ -1675,7 +2041,11 @@ function renderAddons(){
     }
     return true;
   });
-  filtered.sort((a,b) => new Date(b.date) - new Date(a.date));
+  filtered.sort((a,b) => {
+    if(a.featured && !b.featured) return -1;
+    if(!a.featured && b.featured) return 1;
+    return new Date(b.date) - new Date(a.date);
+  });
   addonsGrid.innerHTML = '';
   if(!filtered.length){
     addonsGrid.innerHTML = `<div class="empty-state"><i class="fas fa-box-open"></i><h3>Nenhum addon encontrado</h3><p>${addonsData.length ? 'Tente alterar os filtros.' : 'Em breve novos addons serão publicados aqui.'}</p></div>`;
@@ -1745,6 +2115,7 @@ function setIconForEdit(icon){
 function resetAddonForm(){
   $('addAddonForm').reset();
   $('editingId').value = ''; $('addonIcon').value = 'fas fa-puzzle-piece'; $('addonIconUrl').value = '';
+  $('addonFeatured').checked = false;
   removeUploadedIcon(); switchIconTab('icon-fa');
   $('addTabLabel').textContent = 'Adicionar Addon';
   $('submitAddonBtn').innerHTML = '<i class="fas fa-plus"></i> <span>Adicionar Addon</span>';
@@ -1776,7 +2147,8 @@ $('addAddonForm').addEventListener('submit', e => {
     downloadUrlR: urlR,
     downloadUrlBPremium: urlBP || '',
     downloadUrlRPremium: urlRP || '',
-    tags: $('addonTags').value.split(',').map(t => t.trim()).filter(t => t)
+    tags: $('addonTags').value.split(',').map(t => t.trim()).filter(t => t),
+    featured: $('addonFeatured').checked
   };
   if(editingId){
     update(ref(db, 'addons/' + editingId), addonData);
@@ -1804,6 +2176,7 @@ function editAddon(id){
   $('addonAuthor').value = a.author;
   $('addonDescription').value = a.description;
   $('addonTags').value = (a.tags || []).join(', ');
+  $('addonFeatured').checked = !!a.featured;
   $('addonDownloadUrlB').value = a.downloadUrlB;
   $('addonDownloadUrlR').value = a.downloadUrlR;
   $('addonDownloadUrlBPremium').value = a.downloadUrlBPremium || '';
@@ -1830,7 +2203,7 @@ function renderAddonsAdminList(){
   }
   container.innerHTML = addonsData.map(a => {
     const hasPremium = !!(a.downloadUrlBPremium && a.downloadUrlRPremium);
-    return `<div class="addon-admin-item"><div class="addon-admin-thumb">${renderIconHtml(a.icon, a.category)}</div><div class="addon-admin-info"><h4>${escapeHtml(a.name)} ${hasPremium ? '👑' : ''}</h4><p>${catNames[a.category]||a.category} · v${escapeHtml(a.version)} · ${escapeHtml(a.author)}</p></div><div class="addon-admin-actions"><button class="edit" onclick="editAddon('${a.id}')"><i class="fas fa-pen"></i></button><button class="del" onclick="deleteAddon('${a.id}')"><i class="fas fa-trash"></i></button></div></div>`;
+    return `<div class="addon-admin-item"><div class="addon-admin-thumb">${renderIconHtml(a.icon, a.category)}</div><div class="addon-admin-info"><h4>${escapeHtml(a.name)} ${hasPremium ? '👑' : ''} ${a.featured ? '⭐' : ''}</h4><p>${catNames[a.category]||a.category} · v${escapeHtml(a.version)} · ${escapeHtml(a.author)}</p></div><div class="addon-admin-actions"><button class="edit" onclick="editAddon('${a.id}')"><i class="fas fa-pen"></i></button><button class="del" onclick="deleteAddon('${a.id}')"><i class="fas fa-trash"></i></button></div></div>`;
   }).join('');
 }
 
@@ -1899,6 +2272,79 @@ function renderDashboard(){
       <div class="stat-box"><h4><i class="fas fa-star"></i> Top 5 Melhor Avaliados</h4><div class="top-list">${topRated.length ? topRated.map((t, i) => `<div class="top-item"><div class="top-rank ${i === 0 ? 'gold' : i === 1 ? 'silver' : i === 2 ? 'bronze' : ''}">${i+1}</div><div class="top-name">${escapeHtml(t.name)}</div><div class="top-value">${t.rating.avg} ⭐</div></div>`).join('') : '<p style="color:var(--text-mute);font-size:0.85rem">Nenhuma avaliação ainda</p>'}</div></div>
     </div>
   `;
+  renderGrowthChart();
+}
+
+function renderGrowthChart(){
+  const ctx = document.getElementById('growthChart');
+  if(!ctx) return;
+  if(typeof Chart === 'undefined') return;
+
+  const months = [];
+  const revenue = [];
+  const clients = [];
+  const addons = [];
+
+  for(let i = 5; i >= 0; i--){
+    const d = new Date();
+    d.setMonth(d.getMonth() - i);
+    const monthKey = d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0');
+    const monthLabel = d.toLocaleDateString('pt-BR', { month: 'short', year: '2-digit' });
+    months.push(monthLabel);
+
+    const rev = keysData.filter(k => {
+      if(!k.activatedAt) return false;
+      const kd = new Date(k.activatedAt);
+      return (kd.getFullYear() + '-' + String(kd.getMonth() + 1).padStart(2, '0')) === monthKey;
+    }).reduce((acc, k) => {
+      if(k.days === 30) return acc + 5;
+      if(k.days === 90) return acc + 10;
+      if(k.days === 365) return acc + 15;
+      return acc;
+    }, 0);
+    revenue.push(rev);
+
+    const cli = new Set(keysData.filter(k => {
+      if(!k.activatedAt || !k.email) return false;
+      const kd = new Date(k.activatedAt);
+      return (kd.getFullYear() + '-' + String(kd.getMonth() + 1).padStart(2, '0')) === monthKey;
+    }).map(k => k.email)).size;
+    clients.push(cli);
+
+    const ad = addonsData.filter(a => {
+      if(!a.date) return false;
+      const ad2 = new Date(a.date);
+      return (ad2.getFullYear() + '-' + String(ad2.getMonth() + 1).padStart(2, '0')) === monthKey;
+    }).length;
+    addons.push(ad);
+  }
+
+  if(chartInstance) chartInstance.destroy();
+
+  const isLight = document.body.classList.contains('light-mode');
+  const textColor = isLight ? '#4a5568' : '#8b95ad';
+  const gridColor = isLight ? 'rgba(0,0,0,0.05)' : 'rgba(255,255,255,0.05)';
+
+  chartInstance = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: months,
+      datasets: [
+        { label: 'Faturamento (R$)', data: revenue, borderColor: '#fbbf24', backgroundColor: 'rgba(251,191,36,0.1)', tension: 0.4, fill: true, pointBackgroundColor: '#fbbf24', pointRadius: 5 },
+        { label: 'Novos clientes', data: clients, borderColor: '#10b981', backgroundColor: 'rgba(16,185,129,0.1)', tension: 0.4, fill: true, pointBackgroundColor: '#10b981', pointRadius: 5 },
+        { label: 'Addons publicados', data: addons, borderColor: '#6366f1', backgroundColor: 'rgba(99,102,241,0.1)', tension: 0.4, fill: true, pointBackgroundColor: '#6366f1', pointRadius: 5 }
+      ]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      plugins: { legend: { labels: { color: textColor, font: { family: 'Inter', size: 12 } } } },
+      scales: {
+        x: { ticks: { color: textColor }, grid: { color: gridColor } },
+        y: { ticks: { color: textColor }, grid: { color: gridColor }, beginAtZero: true }
+      }
+    }
+  });
 }
 
 function switchAdminTab(btn){
@@ -1909,6 +2355,7 @@ function switchAdminTab(btn){
   if(btn.dataset.pane === 'pane-list') renderKeyList();
   if(btn.dataset.pane === 'pane-manage') renderAddonsAdminList();
   if(btn.dataset.pane === 'pane-creators') renderCreatorsList();
+  if(btn.dataset.pane === 'pane-newsletter') renderNewsletterList(newsletterData);
   if(btn.dataset.pane === 'pane-dashboard') renderDashboard();
 }
 
@@ -1991,6 +2438,13 @@ window.clearAllKeys = clearAllKeys;
 window.filterByAuthor = filterByAuthor;
 window.clearAuthorFilter = clearAuthorFilter;
 window.toggleTheme = toggleTheme;
+window.toggleColorPicker = toggleColorPicker;
+window.setCustomColor = setCustomColor;
+window.switchTrending = switchTrending;
+window.scrollToAddon = scrollToAddon;
+window.subscribeNewsletter = subscribeNewsletter;
+window.copyAllNewsletterEmails = copyAllNewsletterEmails;
+window.downloadNewsletterCSV = downloadNewsletterCSV;
 window.openClientPanel = openClientPanel;
 window.closeClientPanel = closeClientPanel;
 window.saveClientEmail = saveClientEmail;
@@ -2009,6 +2463,7 @@ window.renderDashboard = renderDashboard;
 
 /* ================= INIT ================= */
 initTheme();
+initCustomColor();
 setupAutocomplete();
 updateClientBadge();
 updatePremiumUI();
